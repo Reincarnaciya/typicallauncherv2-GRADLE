@@ -5,4 +5,7 @@ import lombok.CustomLog;
 @CustomLog
 public class FriendsController {
 
+
+
+
 }
