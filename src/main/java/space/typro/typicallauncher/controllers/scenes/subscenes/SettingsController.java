@@ -144,7 +144,7 @@ public class SettingsController extends BaseController {
                                             changedSettings,
                                             settingsBeforeChange,
                                             newSettings
-                            ));
+                                    ));
                         }catch (IOException e){
                             showErrorAlert("Чёт ошибка какая-то.. Подробности в консоли");
                             log.error("A?", e);
@@ -228,7 +228,6 @@ public class SettingsController extends BaseController {
     @CustomLog
     @NoArgsConstructor
     @AllArgsConstructor
-    @Builder
     public static @Data class GameSettings implements Serializable {
         public static GameSettings settings = new GameSettings();
 

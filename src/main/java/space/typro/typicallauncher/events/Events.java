@@ -36,7 +36,7 @@ public class Events {
     @EqualsAndHashCode(callSuper = true)
     @Data
     @AllArgsConstructor
-    public abstract static class SettingsEvent extends EventData {
+    public static class SettingsEvent extends EventData {
         SettingsEventType SettingsEventType;
         HashMap<String, String> changedSettings;
         SettingsController.GameSettings beforeChange;
