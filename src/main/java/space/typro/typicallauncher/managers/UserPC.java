@@ -2,12 +2,13 @@ package space.typro.typicallauncher.managers;
 
 
 import com.sun.management.OperatingSystemMXBean;
-import lombok.CustomLog;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.lang.management.ManagementFactory;
-@CustomLog
+
+@Slf4j
 @ToString
 public class UserPC {
     /**
@@ -33,10 +34,10 @@ public class UserPC {
 
     private static OS getPlatform(){
         String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("win")) return OS.windows;
-        else if (os.contains("linux") || os.contains("unix")) return OS.linux;
-        else if (os.contains("macos")) return OS.macos;
-        else return OS.unknown;
+        if (os.contains("win")) return OS.WINDOWS;
+        else if (os.contains("linux") || os.contains("unix")) return OS.LINUX;
+        else if (os.contains("macos")) return OS.MACOS;
+        else return OS.UNKNOWN;
     }
 
     /**
@@ -49,6 +50,6 @@ public class UserPC {
     }
 
     public enum OS{
-        windows, linux, macos, unknown
+        WINDOWS, LINUX, MACOS, UNKNOWN
     }
 }

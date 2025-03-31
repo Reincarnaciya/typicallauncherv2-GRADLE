@@ -1,12 +1,12 @@
 package space.typro.typicallauncher;
 
-import javafx.scene.image.Image;
-import lombok.CustomLog;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
-@CustomLog
+
+@Slf4j
 public class ResourceHelper {
 
     public static String getResourceByType(ResourceFolder folder, String resourceName){
@@ -29,7 +29,6 @@ public class ResourceHelper {
         }
         return Main.class.getResourceAsStream(folder.location + "/" + resourceName);
     }
-
 
 
     public enum ResourceFolder {

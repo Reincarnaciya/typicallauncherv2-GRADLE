@@ -1,7 +1,7 @@
 /* Шрифты */
 @font-face {
     -fx-font-family: "F77 Minecraft";
-    src: url("Minecraft.ttf");
+    src: url("Minecraft.ttf"); /* Абсолютный путь в ресурсах */
 }
 
 /* Общие стили */

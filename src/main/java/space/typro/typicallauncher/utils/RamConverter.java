@@ -1,8 +1,8 @@
 package space.typro.typicallauncher.utils;
 
-import lombok.CustomLog;
+import lombok.extern.slf4j.Slf4j;
 
-@CustomLog
+@Slf4j
 public class RamConverter {
 
     /**

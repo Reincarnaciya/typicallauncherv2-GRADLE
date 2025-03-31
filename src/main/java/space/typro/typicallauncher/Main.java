@@ -4,32 +4,41 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.image.Image;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import lombok.CustomLog;
+import lombok.extern.slf4j.Slf4j;
 import space.typro.typicallauncher.controllers.scenes.subscenes.SettingsController;
-import space.typro.typicallauncher.utils.Logger;
+import space.typro.typicallauncher.utils.LogbackConfigurator;
 
 import java.awt.*;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
-@CustomLog
+@Slf4j
 public class Main extends Application {
     public static final String LAUNCHER_VERSION = "DEV_BUILD_0";
     private double xOffset;
     private double yOffset;
 
     public static Stage GLOBAL_STAGE;
+    public static void main(String[] args) {
+
+
+        launch();
+    }
+
+    private void generatePopupMenu() { //TODO Переписать к хуям всю эту хуйню
+
+    }
+
+    public static void exit(){
+        GLOBAL_STAGE.close();
+        Platform.exit();
+        System.exit(0);
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
-        
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/launcher-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -51,7 +60,7 @@ public class Main extends Application {
         stage.initStyle(StageStyle.TRANSPARENT);
         GLOBAL_STAGE = stage;
 
-        Logger.initLogger();
+        LogbackConfigurator.configure();
 
         SettingsController.GameSettings.settings.loadSettings();
 
@@ -62,19 +71,5 @@ public class Main extends Application {
 
 
         stage.show();
-    }
-
-    private void generatePopupMenu() { //TODO Переписать к хуям всю эту хуйню
-
-    }
-
-    public static void exit(){
-        GLOBAL_STAGE.close();
-        Platform.exit();
-        System.exit(0);
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

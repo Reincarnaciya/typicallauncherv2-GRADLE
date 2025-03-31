@@ -1,11 +1,8 @@
 package space.typro.typicallauncher.controllers.scenes.subscenes;
 
-import lombok.CustomLog;
+import lombok.extern.slf4j.Slf4j;
 
-@CustomLog
+@Slf4j
 public class FriendsController {
-
-
-
 
 }

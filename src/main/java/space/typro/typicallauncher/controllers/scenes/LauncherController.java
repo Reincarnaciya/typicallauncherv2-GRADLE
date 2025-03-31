@@ -4,11 +4,13 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import lombok.CustomLog;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.ResourceHelper;
 import space.typro.typicallauncher.controllers.BaseController;
@@ -17,12 +19,12 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
-@CustomLog
+@Slf4j
 public class LauncherController extends BaseController {
-    public static LauncherController instance;
+    private static final Deque<Subscene> sceneHistory = new ArrayDeque<>();
+    private static LauncherController instance;
 
     @FXML
     private VBox mainPane;
@@ -52,142 +54,138 @@ public class LauncherController extends BaseController {
     private Pane subscene;
     @FXML
     private Pane hideLauncherButton;
+    private Subscene currentSubscene = null;
 
-    private static Subscene currentSubscene = null;
-    private static Subscene previosSubscene = Subscene.NONE; //TODO: лист прошлых сцен
-
-
-
-    public void initialize(URL var1, ResourceBundle var2) {
-        super.initialize();
-        instance = this;
-        this.loadLeftPanels();
-        this.loadTopPane();
-        hideLauncherButton.setOnMouseClicked(this::hideLauncher);
-        //TODO: Проверка на авторизованность пользователя, если авторизован - то в профиль, иначе в авторизацию
-        loadSubscene(Subscene.LOGIN);
-    }
-
-    private void hideLauncher(MouseEvent mouseEvent) {
-        Main.GLOBAL_STAGE.setIconified(true);
-    }
-    /**
-     * @param whatToLoad Сабсцена для загрузки
-     */
-    public static void loadSubscene(final Subscene whatToLoad) {
-        if (whatToLoad.equals(currentSubscene)){
-            return;
-        }
-
+    public static void loadSubscene(Subscene newScene) {
+        if (newScene == instance.currentSubscene) return;
+        log.info("Open scene: {}", newScene);
         Platform.runLater(() -> {
             try {
-                Subscene toLoad = whatToLoad;
-                if (whatToLoad == Subscene.PREVIOS_SUBSCENE && previosSubscene != Subscene.NONE){
-                    toLoad = previosSubscene;
-                }else if (whatToLoad == Subscene.PREVIOS_SUBSCENE){
-                    return;
-                }
-                FXMLLoader fxmlLoader = new FXMLLoader(new URI(ResourceHelper.getResourceByType(ResourceHelper.ResourceFolder.SUB_SCENES, toLoad.fxml)).toURL());
-                Parent tempContent = fxmlLoader.load();
-                instance.subscene.getChildren().setAll(tempContent);
-                instance.upperText.setText(
-                        switch (toLoad){
-                            case LOGIN -> "Авторизация";
-                            case PROFILE -> "Профиль";
-                            case REGISTER -> "Регистрация";
-                            case NEWS -> "Новости";
-                            case FORUM -> "Форум";
-                            case FRIENDS -> "Друзья";
-                            case SETTINGS -> "Настройки";
-                            case PLAY -> "Играть";
-                            default -> "Неизвестное окно..Ты как сюда забрался?";
-                        }
-                );
-            } catch (URISyntaxException | IOException e) {
-                throw new RuntimeException(e);
+                Parent sceneContent = loadFxmlContent(newScene);
+                instance.updateUI(newScene, sceneContent);
+                updateSceneHistory(newScene);
+            } catch (Exception e) {
+                log.error(String.format("Error loading subscene: {%s}", newScene), e);
+                instance.showErrorAlert("Scene loading error: " + e.getMessage());
             }
         });
-
-        previosSubscene = Objects.requireNonNullElse(currentSubscene, Subscene.NONE);
-        currentSubscene = whatToLoad;
-    }
-    private void loadTopPane() {
-        exitButton.setOnMouseClicked(mouseEvent -> Main.exit());
     }
 
-    private void loadLeftPanels(){
-        accountLeftPane.setBackground(getBackground(false, "account.png"));
-        accountLeftPane.setOnMouseClicked(this::onAccountClick);
-
-        newsLeftPane.setBackground(getBackground(false, "news.png"));
-        newsLeftPane.setOnMouseClicked(this::onNewsClick);
-
-        forumLeftPane.setBackground(getBackground(false, "forum.png"));
-        forumLeftPane.setOnMouseClicked(this::onForumClick);
-
-        friendsLeftPane.setBackground(getBackground(false, "account.png"));
-        friendsLeftPane.setOnMouseClicked(this::onFriendClick);
-
-        settingsLeftPane.setBackground(getBackground(false, "settings.png"));
-        settingsLeftPane.setOnMouseClicked(this::onSettingsClick);
-
-        playLeftPane.setBackground(getBackground(false, "play.png"));
-        playLeftPane.setOnMouseClicked(this::onPlayClick);
+    private static Parent loadFxmlContent(Subscene scene) throws URISyntaxException, IOException {
+        URI fxmlLocation = new URI(ResourceHelper.getResourceByType(
+                ResourceHelper.ResourceFolder.SUB_SCENES,
+                scene.getFxml()
+        ));
+        return FXMLLoader.load(fxmlLocation.toURL());
     }
 
+    private static void updateSceneHistory(Subscene newScene) {
+        sceneHistory.push(newScene);
+        instance.currentSubscene = newScene;
+    }
 
+    public static void loadPreviousScene() {
+        if (sceneHistory.size() <= 1) return;
 
-    private void onAccountClick(MouseEvent mouseEvent) {
+        sceneHistory.pop(); // Remove current scene
+        Subscene previous = sceneHistory.peek();
+        loadSubscene(previous);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        instance = this;
+        configureLeftPanels();
+        configureTopPane();
+        setupSceneHistory();
+        loadInitialSubscene();
+    }
+
+    private void setupSceneHistory() {
+        sceneHistory.push(Subscene.NONE);
+    }
+
+    private void loadInitialSubscene() {
+        // TODO: Add auth check logic
         loadSubscene(Subscene.LOGIN);
     }
-    private void onNewsClick(MouseEvent mouseEvent) {
-        loadSubscene(Subscene.NEWS);
-    }
-    private void onForumClick(MouseEvent mouseEvent) {
-        loadSubscene(Subscene.FORUM);
-    }
-    private void onFriendClick(MouseEvent mouseEvent) {
-        loadSubscene(Subscene.FRIENDS);
-    }
-    private void onSettingsClick(MouseEvent mouseEvent) {
-        loadSubscene(Subscene.SETTINGS);
-    }
-    private void onPlayClick(MouseEvent mouseEvent) {
-        loadSubscene(Subscene.PLAY);
+
+    private void configureTopPane() {
+        exitButton.setOnMouseClicked(event -> Main.exit());
     }
 
-    private static Background getBackground(boolean picked, String imgName){
-        return new Background(
-                new BackgroundImage(
-                        new Image(
-                                picked ? ResourceHelper.getResourceByType(
-                                        ResourceHelper.ResourceFolder.LEFT_PANEL_IMAGE_P, imgName
-                                ) :
-                                        ResourceHelper.getResourceByType(
-                                                ResourceHelper.ResourceFolder.LEFT_PANEL_IMAGE_NP, imgName
-                                        )
-                        ),
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundRepeat.NO_REPEAT,
-                        BackgroundPosition.CENTER,
-                        new BackgroundSize(100,100,true, true, true, true)
-                )
-        );
+    private void configureLeftPanels() {
+        Map<Pane, Subscene> panelScenes = new LinkedHashMap<>();
+        panelScenes.put(accountLeftPane, Subscene.LOGIN);
+        panelScenes.put(newsLeftPane, Subscene.NEWS);
+        panelScenes.put(forumLeftPane, Subscene.FORUM);
+        panelScenes.put(friendsLeftPane, Subscene.FRIENDS);
+        panelScenes.put(settingsLeftPane, Subscene.SETTINGS);
+        panelScenes.put(playLeftPane, Subscene.PLAY);
+
+        panelScenes.forEach((panel, scene) -> {
+            panel.setUserData(scene);
+            panel.setOnMouseClicked(this::handlePanelClick);
+            applyPanelStyle(panel, scene.getImageName());
+        });
     }
-    public enum Subscene{
-        NONE("NULL"),
-        PREVIOS_SUBSCENE(""),
-        LOGIN("login-view.fxml"),
-        PROFILE("profile-view.fxml"),
-        REGISTER("registration-view.fxml"),
-        NEWS("news-view.fxml"),
-        FORUM("forum-view.fxml"),
-        FRIENDS("friends-view.fxml"),
-        SETTINGS("settings-view.fxml"),
-        PLAY("play-view.fxml");
-        public final String fxml;
-        Subscene(String s){
-            fxml = s;
+
+    private void applyPanelStyle(Pane panel, String imageName) {
+        String normalStyle = "-fx-background-image: url('%s'); -fx-background-repeat: no-repeat;".formatted(
+                ResourceHelper.getResourceUrlByType(
+                        ResourceHelper.ResourceFolder.LEFT_PANEL_IMAGE_NP,
+                        imageName
+                ));
+        String hoverStyle = "-fx-background-image: url('%s'); -fx-background-repeat: no-repeat;".formatted(
+                ResourceHelper.getResourceUrlByType(
+                        ResourceHelper.ResourceFolder.LEFT_PANEL_IMAGE_P,
+                        imageName
+                ));
+
+        panel.setStyle(normalStyle);
+        panel.hoverProperty().addListener((obs, oldVal, isHovering) -> {
+            panel.setStyle(isHovering ? hoverStyle : normalStyle);
+        });
+    }
+
+    private void handlePanelClick(MouseEvent event) {
+        Pane source = (Pane) event.getSource();
+        Subscene targetScene = (Subscene) source.getUserData();
+        loadSubscene(targetScene);
+    }
+
+    private void updateUI(Subscene scene, Parent content) {
+        subscene.getChildren().setAll(content);
+        upperText.setText(scene.getTitle());
+    }
+
+    @FXML
+    private void hideLauncher(MouseEvent event) {
+        Main.GLOBAL_STAGE.setIconified(true);
+    }
+
+    @Getter
+    public enum Subscene {
+        NONE("", "", ""),
+        LOGIN("login-view.fxml", "Авторизация", "account.png"),
+        PROFILE("profile-view.fxml", "Профиль", "account.png"),
+        REGISTER("registration-view.fxml", "Регистрация", "account.png"),
+        NEWS("news-view.fxml", "Новости", "news.png"),
+        FORUM("forum-view.fxml", "Форум", "forum.png"),
+        FRIENDS("friends-view.fxml", "Друзья", "friends.png"),
+        SETTINGS("settings-view.fxml", "Настройки", "settings.png"),
+        PLAY("play-view.fxml", "Играть", "play.png");
+
+        private final String fxml;
+        private final String title;
+        private final String imageName;
+
+        Subscene(String fxml, String title, String imageName) {
+            this.fxml = fxml;
+            this.title = title;
+            this.imageName = imageName;
         }
+
     }
+
 }

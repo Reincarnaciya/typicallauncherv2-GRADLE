@@ -2,8 +2,10 @@ package space.typro.typicallauncher.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+import lombok.ToString;
+
 @AllArgsConstructor
+@ToString
 public class Account {
 
     public static Account defaultAccount = new Account("Игрок", false, false, null);
@@ -21,7 +23,9 @@ public class Account {
      @Data
      @AllArgsConstructor
      public static class User {
-        String password;
-        String username; //TODO: ХРАНИТЬ ХЭШ
+         Password password;
+         String username;
     }
+
+
 }

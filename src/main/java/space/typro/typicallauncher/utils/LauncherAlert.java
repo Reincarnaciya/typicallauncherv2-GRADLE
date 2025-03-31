@@ -4,10 +4,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import lombok.CustomLog;
+import lombok.extern.slf4j.Slf4j;
 import space.typro.typicallauncher.ResourceHelper;
 
-@CustomLog
+@Slf4j
 public class LauncherAlert extends Alert {
     private final Stage stage;
     private double xOffset;

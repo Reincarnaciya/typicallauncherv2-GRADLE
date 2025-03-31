@@ -1,15 +1,9 @@
 package space.typro.typicallauncher.models;
 
-import javafx.scene.control.skin.TextInputControlSkin;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import space.typro.typicallauncher.controllers.ServerPane;
 import space.typro.typicallauncher.managers.DirManager;
 
-import java.awt.*;
 import java.io.File;
-import java.io.Serializable;
 import java.net.URL;
 
 @Data
@@ -29,7 +23,7 @@ public class Server {
         public final String pathToAssets;
 
         ServerVersion(String assetName) {
-            this.pathToAssets = DirManager.assetsDir.dir.getAbsolutePath() + File.separator + assetName;
+            this.pathToAssets = DirManager.assetsDir.getDir().getAbsolutePath() + File.separator + assetName;
         }
     }
 

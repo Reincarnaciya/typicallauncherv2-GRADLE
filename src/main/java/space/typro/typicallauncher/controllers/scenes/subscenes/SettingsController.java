@@ -6,14 +6,16 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import javafx.stage.DirectoryChooser;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.controllers.BaseController;
-import space.typro.typicallauncher.events.EventData;
 import space.typro.typicallauncher.events.EventDispatcher;
-import space.typro.typicallauncher.events.EventListener;
 import space.typro.typicallauncher.events.Events;
 import space.typro.typicallauncher.managers.DirManager;
+import space.typro.typicallauncher.managers.SettingsManager;
 import space.typro.typicallauncher.managers.UserPC;
 import space.typro.typicallauncher.utils.LauncherAlert;
 import space.typro.typicallauncher.utils.RamConverter;
@@ -21,10 +23,12 @@ import space.typro.typicallauncher.utils.RamConverter;
 import java.io.*;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
-@CustomLog
+@Slf4j
 public class SettingsController extends BaseController {
 
     @FXML
@@ -50,6 +54,11 @@ public class SettingsController extends BaseController {
     @FXML
     private Text launcherVersionText;
 
+
+    private final SettingsManager settingsManager = new SettingsManager();
+    private SettingsManager.SettingsUIComponents uiComponents;
+
+
     private static final int MAX_WIDTH = UserPC.MONITOR_WIDTH;
     private static final int MIN_WIDTH = 800;
     private static final int MAX_HEIGHT = UserPC.MONITOR_HEIGHT;
@@ -58,6 +67,14 @@ public class SettingsController extends BaseController {
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize();
+
+        uiComponents = new SettingsManager.SettingsUIComponents(
+                fullscreenCheckBox,
+                hideLauncherCheckBox,
+                ramSlider,
+                widthTextField,
+                heightTextField
+        );
         launcherVersionText.setText(LAUNCHER_VERSION_TEXT);
 
         openLauncherFolderButton.setOnMouseClicked(this::openLauncherDir);
@@ -71,9 +88,37 @@ public class SettingsController extends BaseController {
             Events.SettingsEvent data = (Events.SettingsEvent) eventData;
             updateVisualSettings(data.getNewSettings());
         });
+
         updateVisualSettings(GameSettings.settings);
+        resetButton.setOnMouseClicked(this::resetSettings);
     }
 
+    private void resetSettings(MouseEvent mouseEvent) {
+        new LauncherAlert(
+                Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сбросить настройки?",
+                new ButtonType("Да", ButtonBar.ButtonData.APPLY),
+                new ButtonType("Нет", ButtonBar.ButtonData.CANCEL_CLOSE)
+        ).showAndWait().ifPresent(result -> {
+            if (result.getButtonData() == ButtonBar.ButtonData.APPLY) {
+                GameSettings settingsBeforeChange = GameSettings.settings;
+
+                GameSettings.resetToDefault();
+
+                HashMap<String, String> changedSettings;
+
+                GameSettings newSettings = GameSettings.settings;
+
+                changedSettings = getChangedSettings(newSettings);
+
+                EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT, new Events.SettingsEvent(
+                        Events.SettingsEvent.SettingsEventType.RESTORE,
+                        changedSettings,
+                        settingsBeforeChange,
+                        newSettings
+                ));
+            }
+        });
+    }
 
 
     private void fullscreenCheckBoxClick(MouseEvent mouseEvent) {
@@ -86,18 +131,7 @@ public class SettingsController extends BaseController {
         }
     }
 
-    private void changeClientDir(MouseEvent mouseEvent) {
-        DirectoryChooser chooser = new DirectoryChooser();
-        chooser.setInitialDirectory(new File(GameSettings.settings.pathToClientDir));
-        chooser.setTitle("Выберите папку, в которую будут сохранятся клиенты игры");
-        File result = chooser.showDialog(Main.GLOBAL_STAGE);
-        if (result == null){
-            return;
-        }
-        result.mkdirs();
-        GameSettings.settings.setPathToClientDir(result.getPath());
-        updateVisualSettings(GameSettings.settings);
-    }
+
 
     private void saveSettings(MouseEvent mouseEvent) {
         new LauncherAlert(Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сохранить настройки?",
@@ -114,28 +148,9 @@ public class SettingsController extends BaseController {
                             return;
                         }
                         GameSettings settingsBeforeChange = GameSettings.settings;
-                        HashMap<String, String> changedSettings = new HashMap<>();
+                        HashMap<String, String> changedSettings;
                         GameSettings newSettings = GameSettings.settings;
-                        if (newSettings.fullscreen != fullscreenCheckBox.isSelected()){
-                            newSettings.setFullscreen(fullscreenCheckBox.isSelected());
-                            changedSettings.put(GameSettings.SettingsEnum.FULLSCREEN.name(), String.valueOf(fullscreenCheckBox.isSelected()));
-                        }
-                        if (newSettings.hideToTray != hideLauncherCheckBox.isSelected()){
-                            newSettings.setHideToTray(hideLauncherCheckBox.isSelected());
-                            changedSettings.put(GameSettings.SettingsEnum.HIDE_TO_TRAY.name(), String.valueOf(hideLauncherCheckBox));
-                        }
-                        if (newSettings.ram != (float) ramSlider.getValue()){
-                            newSettings.setRam((float) ramSlider.getValue());
-                            changedSettings.put(GameSettings.SettingsEnum.RAM.name(), String.valueOf((float) ramSlider.getValue()));
-                        }
-                        if (newSettings.height != Integer.parseInt(heightTextField.getText())){
-                            newSettings.setHeight(Integer.parseInt(heightTextField.getText()));
-                            changedSettings.put(GameSettings.SettingsEnum.HEIGHT.name(), String.valueOf(Integer.parseInt(heightTextField.getText())));
-                        }
-                        if (newSettings.width != Integer.parseInt(widthTextField.getText())){
-                            newSettings.setWidth(Integer.parseInt(widthTextField.getText()));
-                            changedSettings.put(GameSettings.SettingsEnum.WIDTH.name(), String.valueOf(Integer.parseInt(widthTextField.getText())));
-                        }
+                        changedSettings = getChangedSettings(newSettings);
                         try {
                             newSettings.save();
                             EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT,
@@ -146,7 +161,7 @@ public class SettingsController extends BaseController {
                                             newSettings
                                     ));
                         }catch (IOException e){
-                            showErrorAlert("Чёт ошибка какая-то.. Подробности в консоли");
+                            showErrorAlert("Чёт ошибка какая-то.. Подробности в консоли: " + e.getMessage());
                             log.error("A?", e);
                         }
                     }
@@ -154,12 +169,59 @@ public class SettingsController extends BaseController {
         updateVisualSettings(GameSettings.settings);
     }
 
+    private void changeClientDir(MouseEvent mouseEvent) {
+        DirectoryChooser chooser = new DirectoryChooser();
+        chooser.setInitialDirectory(new File(GameSettings.settings.pathToClientDir));
+        chooser.setTitle("Выберите папку, в которую будут сохранятся клиенты игры");
+        File result = chooser.showDialog(Main.GLOBAL_STAGE);
+        if (result == null) {
+            return;
+        }
+        result.mkdirs();
+        GameSettings.settings.setPathToClientDir(result.getPath());
+        updateVisualSettings(GameSettings.settings);
+    }
+
+    private HashMap<String, String> getChangedSettings(GameSettings newSettings) {
+        Map<GameSettings.SettingsEnum, String> changes =
+                settingsManager.detectChanges(newSettings, uiComponents);
+
+        changes.forEach((setting, value) -> {
+            switch (setting) {
+                case FULLSCREEN:
+                    newSettings.setFullscreen(Boolean.parseBoolean(value));
+                    break;
+                case HIDE_TO_TRAY:
+                    newSettings.setHideToTray(Boolean.parseBoolean(value));
+                    break;
+                case RAM:
+                    newSettings.setRam(Float.parseFloat(value));
+                    break;
+                case WIDTH:
+                    newSettings.setWidth(Integer.parseInt(value));
+                    break;
+                case HEIGHT:
+                    newSettings.setHeight(Integer.parseInt(value));
+                    break;
+            }
+        });
+
+        return changes.entrySet().stream()
+                .collect(Collectors.toMap(
+                        e -> e.getKey().name(),
+                        Map.Entry::getValue,
+                        (a, b) -> b,
+                        HashMap::new
+                ));
+    }
+
+
     private boolean settingsIsCorrect() {
         int height;
         int width;
-        float ram = (float) ramSlider.getValue();
-        boolean fullscreen = fullscreenCheckBox.isSelected();
-        boolean hideInTray = hideLauncherCheckBox.isSelected();
+//        float ram = (float) ramSlider.getValue();
+//        boolean fullscreen = fullscreenCheckBox.isSelected();
+//        boolean hideInTray = hideLauncherCheckBox.isSelected();
 
         try {
             height = Integer.parseInt(heightTextField.getText());
@@ -225,7 +287,7 @@ public class SettingsController extends BaseController {
         DirManager.launcherDir.openInExplorer();
     }
 
-    @CustomLog
+    @Slf4j
     @NoArgsConstructor
     @AllArgsConstructor
     public static @Data class GameSettings implements Serializable {
@@ -259,7 +321,7 @@ public class SettingsController extends BaseController {
          */
         private String pathToClientDir = DirManager.launcherDir + File.separator + "clients";
 
-        private static File settingsFile = new File(DirManager.launcherDir.dir + File.separator +  "settings.properties");
+        private static File settingsFile = new File(DirManager.launcherDir.getDir() + File.separator + "settings.properties");
         public void loadSettings() throws IOException {
 
             if (!new File(pathToClientDir).exists()){
@@ -295,7 +357,9 @@ public class SettingsController extends BaseController {
             properties.setProperty(SettingsEnum.PATH_TO_CLIENT.name(), String.valueOf(pathToClientDir));
 
 
-            properties.save(new FileOutputStream(settingsFile), "Настройки клиента");
+            try (OutputStream output = new FileOutputStream(settingsFile)) {
+                properties.store(output, "Launcher settings");
+            }
         }
 
         public enum SettingsEnum{
