@@ -161,7 +161,7 @@ public class LauncherController extends BaseController {
 
     @FXML
     private void hideLauncher(MouseEvent event) {
-        Main.GLOBAL_STAGE.setIconified(true);
+        Main.hideLauncher();
     }
 
     @Getter

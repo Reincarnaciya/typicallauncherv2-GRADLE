@@ -94,7 +94,7 @@ public class SettingsController extends BaseController {
     }
 
     private void resetSettings(MouseEvent mouseEvent) {
-        new LauncherAlert(
+        LauncherAlert.create(
                 Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сбросить настройки?",
                 new ButtonType("Да", ButtonBar.ButtonData.APPLY),
                 new ButtonType("Нет", ButtonBar.ButtonData.CANCEL_CLOSE)
@@ -134,7 +134,7 @@ public class SettingsController extends BaseController {
 
 
     private void saveSettings(MouseEvent mouseEvent) {
-        new LauncherAlert(Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сохранить настройки?",
+        LauncherAlert.create(Alert.AlertType.CONFIRMATION, "Вы уверены, что хотите сохранить настройки?",
                 new ButtonType("Да", ButtonBar.ButtonData.APPLY),
                 new ButtonType("Нет, отменить изменения", ButtonBar.ButtonData.CANCEL_CLOSE)
         )
@@ -334,13 +334,17 @@ public class SettingsController extends BaseController {
 
             Properties properties = new Properties();
             properties.load(new FileInputStream(settingsFile));
+            try {
+                this.fullscreen = Boolean.parseBoolean(properties.getProperty(SettingsEnum.FULLSCREEN.name()));
+                this.height = Integer.parseInt(properties.getProperty(SettingsEnum.HEIGHT.name()));
+                this.width = Integer.parseInt(properties.getProperty(SettingsEnum.WIDTH.name()));
+                this.hideToTray = Boolean.parseBoolean(properties.getProperty(SettingsEnum.HIDE_TO_TRAY.name()));
+                this.ram = Float.parseFloat(properties.getProperty(SettingsEnum.RAM.name()));
+                this.pathToClientDir = properties.getProperty(SettingsEnum.PATH_TO_CLIENT.name());
+            }catch (Exception e){
+                log.error("cannot load settings from properties file");
+            }
 
-            this.fullscreen = Boolean.parseBoolean(properties.getProperty(SettingsEnum.FULLSCREEN.name()));
-            this.height = Integer.parseInt(properties.getProperty(SettingsEnum.HEIGHT.name()));
-            this.width = Integer.parseInt(properties.getProperty(SettingsEnum.WIDTH.name()));
-            this.hideToTray = Boolean.parseBoolean(properties.getProperty(SettingsEnum.HIDE_TO_TRAY.name()));
-            this.ram = Float.parseFloat(properties.getProperty(SettingsEnum.RAM.name()));
-            this.pathToClientDir = properties.getProperty(SettingsEnum.PATH_TO_CLIENT.name());
 
 
         }

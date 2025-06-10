@@ -27,7 +27,6 @@ public class LogbackConfigurator {
 
             rootLogger.detachAndStopAllAppenders();
 
-            // Console appender
             ch.qos.logback.core.ConsoleAppender<ch.qos.logback.classic.spi.ILoggingEvent> consoleAppender =
                     new ch.qos.logback.core.ConsoleAppender<>();
             consoleAppender.setContext(rootLogger.getLoggerContext());
@@ -35,7 +34,6 @@ public class LogbackConfigurator {
             consoleAppender.setEncoder(getPatternLayoutEncoder(rootLogger.getLoggerContext(), LOG_PATTERN));
             consoleAppender.start();
 
-            // File appender
             ch.qos.logback.core.FileAppender<ch.qos.logback.classic.spi.ILoggingEvent> fileAppender =
                     new ch.qos.logback.core.FileAppender<>();
             fileAppender.setContext(rootLogger.getLoggerContext());

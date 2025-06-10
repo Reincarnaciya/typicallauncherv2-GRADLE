@@ -13,6 +13,7 @@ module space.typro.typicallauncher {
     requires ch.qos.logback.classic;
     requires org.slf4j;
     requires ch.qos.logback.core;
+    requires org.jetbrains.annotations;
 
     opens space.typro.typicallauncher to javafx.fxml;
     opens space.typro.typicallauncher.controllers.scenes.subscenes to javafx.fxml;

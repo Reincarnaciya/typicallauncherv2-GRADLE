@@ -1,5 +1,6 @@
 package space.typro.typicallauncher.utils;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -7,18 +8,18 @@ import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 import space.typro.typicallauncher.ResourceHelper;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicReference;
+
 @Slf4j
 public class LauncherAlert extends Alert {
     private final Stage stage;
     private double xOffset;
     private double yOffset;
 
-    public LauncherAlert(AlertType alertType, String content, ButtonType... buttonTypes) {
-        super(alertType, content, buttonTypes);
-
-        if (alertType == null || content == null) {
-            throw new IllegalArgumentException("AlertType and content cannot be null");
-        }
+    // Приватный конструктор (только для FX-потока)
+    private LauncherAlert(AlertType alertType, String content, ButtonType... buttonTypes) {
+        super(alertType, content, buttonTypes); // SAFE: вызывается только в FX-потоке
 
         this.getDialogPane().getStylesheets().setAll(
                 ResourceHelper.getResourceByType(ResourceHelper.ResourceFolder.ROOT, "alert.css")
@@ -29,7 +30,6 @@ public class LauncherAlert extends Alert {
 
         setHeaderText(getHeaderTextByType(alertType));
 
-        // Делаем так, чтобы окно можно было передвигать в любой точке
         stage.getScene().setOnMousePressed(event -> {
             xOffset = stage.getX() - event.getScreenX();
             yOffset = stage.getY() - event.getScreenY();
@@ -39,6 +39,33 @@ public class LauncherAlert extends Alert {
             stage.setX(event.getScreenX() + xOffset);
             stage.setY(event.getScreenY() + yOffset);
         });
+    }
+
+    // Фабричный метод для создания в любом потоке
+    public static LauncherAlert create(AlertType alertType, String content, ButtonType... buttonTypes) {
+        if (alertType == null || content == null) {
+            throw new IllegalArgumentException("AlertType and content cannot be null");
+        }
+
+        if (Platform.isFxApplicationThread()) {
+            return new LauncherAlert(alertType, content, buttonTypes);
+        } else {
+            AtomicReference<LauncherAlert> alertRef = new AtomicReference<>();
+            CountDownLatch latch = new CountDownLatch(1);
+
+            Platform.runLater(() -> {
+                alertRef.set(new LauncherAlert(alertType, content, buttonTypes));
+                latch.countDown();
+            });
+
+            try {
+                latch.await();
+                return alertRef.get();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Alert creation interrupted", e);
+            }
+        }
     }
 
     private String getHeaderTextByType(AlertType alertType) {

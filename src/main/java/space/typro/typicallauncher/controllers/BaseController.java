@@ -18,6 +18,6 @@ public abstract class BaseController implements Initializable {
     public abstract void initialize(URL url, ResourceBundle resourceBundle);
 
     protected void showErrorAlert(String message) {
-        new LauncherAlert(Alert.AlertType.ERROR, message, ButtonType.OK).showAndWait();
+        LauncherAlert.create(Alert.AlertType.ERROR, message, ButtonType.OK).showAndWait();
     }
 }
