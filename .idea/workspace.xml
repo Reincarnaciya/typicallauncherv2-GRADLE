@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="FxmlFile" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Reincarnaciya&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Reincarnaciya/typicallauncherv2-GRADLE.git&quot;,
+    &quot;accountId&quot;: &quot;de216ca3-ddde-4c31-9da8-7ea8ce7a6c5f&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2zFADspC8XrBIwdU3TtvKkKJX16" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Download Sources.executor": "Run",
+    "Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.Main.main()].executor": "Run",
+    "Gradle.typicallauncherv2-GRADLE [dependencies].executor": "Run",
+    "Gradle.typicallauncherv2-GRADLE [jar].executor": "Run",
+    "Gradle.typicallauncherv2-GRADLE [run].executor": "Run",
+    "Gradle.typicallauncherv2-GRADLE.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher\images\nav" />
+      <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher" />
+      <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Gradle.typicallauncherv2-GRADLE [run]">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="space.typro.typicallauncher.Main" />
+      <module name="typicallauncherv2-GRADLE.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="space.typro.typicallauncher.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="typicallauncherv2-GRADLE [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="dependencies" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="typicallauncherv2-GRADLE [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="typicallauncherv2-GRADLE [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="run" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.typicallauncherv2-GRADLE [run]" />
+        <item itemvalue="Gradle.typicallauncherv2-GRADLE [dependencies]" />
+        <item itemvalue="Gradle.typicallauncherv2-GRADLE [jar]" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="" />
+      <created>1751316330834</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751316330834</updated>
+      <workItem from="1751316332445" duration="232000" />
+      <workItem from="1751316574047" duration="32000" />
+      <workItem from="1751316627587" duration="341000" />
+      <workItem from="1751470430291" duration="774000" />
+      <workItem from="1751481429079" duration="602000" />
+      <workItem from="1751484571575" duration="495000" />
+      <workItem from="1751545723244" duration="2000" />
+      <workItem from="1751545737738" duration="9000" />
+      <workItem from="1753114365892" duration="8600000" />
+      <workItem from="1753212822297" duration="22000" />
+      <workItem from="1753212859123" duration="597000" />
+      <workItem from="1753221614248" duration="259000" />
+      <workItem from="1753314610818" duration="4766000" />
+      <workItem from="1753365223785" duration="8513000" />
+    </task>
+    <task id="LOCAL-00001" summary="Начало вёрстки.. (спасите)">
+      <option name="closed" value="true" />
+      <created>1753319156368</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1753319156368</updated>
+    </task>
+    <task id="LOCAL-00002" summary="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню">
+      <option name="closed" value="true" />
+      <created>1753373899903</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1753373899903</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Начало вёрстки.. (спасите)" />
+    <MESSAGE value="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
+    <option name="LAST_COMMIT_MESSAGE" value="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
+  </component>
+</project>
