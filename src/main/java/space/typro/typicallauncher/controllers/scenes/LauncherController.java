@@ -160,10 +160,6 @@ public class LauncherController extends BaseController {
         upperText.setText(scene.getTitle());
     }
 
-    @FXML
-    private void hideLauncher(MouseEvent event) {
-        Main.hideLauncher();
-    }
 
     public void handleWindowDrag(MouseEvent mouseEvent) {
     }
@@ -172,9 +168,11 @@ public class LauncherController extends BaseController {
     }
 
     public void handleMinimize(ActionEvent actionEvent) {
+        Main.hideLauncher();
     }
 
     public void handleClose(ActionEvent actionEvent) {
+        Main.exit();
     }
 
     public void handleNewsClick(MouseEvent mouseEvent) {

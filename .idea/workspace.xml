@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
+    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="микро фикс">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/LauncherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/LauncherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/nav/profile_icon.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/nav/profile_icon.fxml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -185,7 +190,7 @@
       <workItem from="1753212859123" duration="597000" />
       <workItem from="1753221614248" duration="259000" />
       <workItem from="1753314610818" duration="4766000" />
-      <workItem from="1753365223785" duration="8513000" />
+      <workItem from="1753365223785" duration="9198000" />
     </task>
     <task id="LOCAL-00001" summary="Начало вёрстки.. (спасите)">
       <option name="closed" value="true" />
@@ -203,7 +208,23 @@
       <option name="project" value="LOCAL" />
       <updated>1753373899903</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="микро фикс">
+      <option name="closed" value="true" />
+      <created>1753374444842</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1753374444842</updated>
+    </task>
+    <task id="LOCAL-00004" summary="микро фикс">
+      <option name="closed" value="true" />
+      <created>1753374463994</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1753374463994</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,6 +233,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Начало вёрстки.. (спасите)" />
     <MESSAGE value="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
-    <option name="LAST_COMMIT_MESSAGE" value="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
+    <MESSAGE value="микро фикс" />
+    <option name="LAST_COMMIT_MESSAGE" value="микро фикс" />
   </component>
 </project>

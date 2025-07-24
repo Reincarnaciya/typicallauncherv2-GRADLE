@@ -32,7 +32,7 @@ public class Main extends Application {
     }
 
     public static void hideLauncher() {
-        GLOBAL_STAGE.hide();
+        GLOBAL_STAGE.setIconified(true);
     }
 
     private void generatePopupMenu() {
