@@ -5,7 +5,7 @@
         id="playButtonSvg"
         content="M6 3 L20 12 L6 21 Z"
         fill="transparent"
-        strokeWidth="2"
+        strokeWidth="1.5"
         strokeLineCap="round"
         strokeLineJoin="round"
         styleClass="play-icon-svg"
