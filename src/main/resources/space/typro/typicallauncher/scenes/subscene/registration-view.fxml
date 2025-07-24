@@ -11,6 +11,9 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane prefHeight="400.0" prefWidth="580.0" style="-fx-background-color: #a9a9a9;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="space.typro.reincarnaciya.typicallauncher.back.controllers.scenes.RegistrController">
+<AnchorPane
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="space.typro.typicallauncher.controllers.scenes.subscenes.RegisterController"
+            stylesheets="@../../styles.css" styleClass="anchor-pane-fill">
 
 </AnchorPane>

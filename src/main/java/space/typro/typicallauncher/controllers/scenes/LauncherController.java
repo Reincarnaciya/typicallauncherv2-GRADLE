@@ -65,7 +65,7 @@ public class LauncherController extends BaseController {
                 instance.updateUI(newScene, sceneContent);
                 updateSceneHistory(newScene);
             } catch (Exception e) {
-                log.error(String.format("Error loading subscene: {%s}", newScene), e);
+                log.error("Error loading subscene: {{}}", newScene, e);
                 instance.showErrorAlert("Scene loading error: " + e.getMessage());
             }
         });

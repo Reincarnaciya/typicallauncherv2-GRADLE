@@ -20,8 +20,5 @@ public class PasswordHasher {
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
-
-
     }
-
 }

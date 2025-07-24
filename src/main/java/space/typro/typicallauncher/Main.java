@@ -131,7 +131,7 @@ public class Main extends Application {
         });
         stage.setTitle("TypicalLauncher");
         stage.setScene(scene);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.getIcons().add(new Image(ResourceHelper.getResourceByType(ResourceHelper.ResourceFolder.IMAGES, "ico.png")));
         stage.initStyle(StageStyle.TRANSPARENT);
         GLOBAL_STAGE = stage;
@@ -140,7 +140,7 @@ public class Main extends Application {
 
         SettingsController.GameSettings.settings.loadSettings();
 
-        Platform.setImplicitExit(false); // Делаем, чтоб приложение не клоузалось при скрытие всех пэйнов
+        Platform.setImplicitExit(false);
         if (SystemTray.isSupported()){
             generatePopupMenu();
         }

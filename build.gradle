@@ -2,9 +2,7 @@ plugins {
     id 'java'
     id 'application'
     id 'org.beryx.jlink' version '2.26.0'
-    id 'org.openjfx.javafxplugin' version '0.1.0'
 }
-
 
 group 'space.typro'
 version '1.0-SNAPSHOT'
@@ -12,48 +10,50 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = '21'
 targetCompatibility = '21'
 
+ext {
+    javafxVersion = "21"
+    javafxPlatform = System.getProperty("os.name").toLowerCase().contains("win") ? "win" :
+            System.getProperty("os.name").toLowerCase().contains("mac") ? "mac" : "linux"
+}
+
 repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.4.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.12.4'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.1'
+    // Основные модули JavaFX
+    implementation "org.openjfx:javafx-controls:${javafxVersion}:${javafxPlatform}"
+    implementation "org.openjfx:javafx-graphics:${javafxVersion}:${javafxPlatform}"
+    implementation "org.openjfx:javafx-base:${javafxVersion}:${javafxPlatform}"
+    implementation "org.openjfx:javafx-fxml:${javafxVersion}:${javafxPlatform}"
+    implementation "org.openjfx:javafx-media:${javafxVersion}:${javafxPlatform}"
+    implementation "org.openjfx:javafx-web:${javafxVersion}:${javafxPlatform}"
+
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.0'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.0'
 
     implementation 'org.slf4j:slf4j-api:2.0.9'
-    implementation 'ch.qos.logback:logback-classic:1.4.12'
-    implementation 'ch.qos.logback:logback-core:1.4.11'
+    implementation 'ch.qos.logback:logback-classic:1.5.13'
+    implementation 'ch.qos.logback:logback-core:1.5.13'
 
     implementation 'org.jetbrains:annotations:24.0.1'
-
-    implementation 'org.openjfx:javafx-controls:23.0.1'
-    implementation 'org.openjfx:javafx-fxml:23.0.1'
-
     implementation 'org.kordamp.ikonli:ikonli-javafx:12.3.1'
-
     implementation 'org.kordamp.bootstrapfx:bootstrapfx-core:0.4.0'
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:5.9.2"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.9.2"
 
-
-    implementation 'org.jetbrains:annotations:13.0'
-
     compileOnly 'org.projectlombok:lombok:1.18.30'
-
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
-}
-
-javafx {
-    version = "21"
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base']
 }
 
 application {
     mainClass = 'space.typro.typicallauncher.Main'
+    applicationDefaultJvmArgs = [
+            "--module-path", configurations.runtimeClasspath.asPath,
+            "--add-modules", "javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.web"
+    ]
 }
 
 jar {
@@ -65,12 +65,14 @@ jar {
     }
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
-run {
-    jvmArgs = [
-            "--module-path", classpath.asPath,
-            "--add-modules", "javafx.controls,javafx.fxml"
-    ]
-}
+
 test {
     useJUnitPlatform()
+}
+
+run {
+    jvmArgs = [
+            "--module-path", configurations.runtimeClasspath.asPath,
+            "--add-modules", "javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.web"
+    ]
 }
