@@ -1,6 +1,7 @@
 package space.typro.typicallauncher.controllers.scenes;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -95,10 +96,10 @@ public class LauncherController extends BaseController {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         instance = this;
-        configureLeftPanels();
-        configureTopPane();
-        setupSceneHistory();
-        loadInitialSubscene();
+        //configureLeftPanels();
+        //configureTopPane();
+        //setupSceneHistory();
+        //loadInitialSubscene();
     }
 
     private void setupSceneHistory() {
@@ -164,13 +165,46 @@ public class LauncherController extends BaseController {
         Main.hideLauncher();
     }
 
+    public void handleWindowDrag(MouseEvent mouseEvent) {
+    }
+
+    public void handleWindowPress(MouseEvent mouseEvent) {
+    }
+
+    public void handleMinimize(ActionEvent actionEvent) {
+    }
+
+    public void handleClose(ActionEvent actionEvent) {
+    }
+
+    public void handleNewsClick(MouseEvent mouseEvent) {
+    }
+
+    public void handleProfileClick(MouseEvent mouseEvent) {
+    }
+
+    public void handleForumClick(MouseEvent mouseEvent) {
+    }
+
+    public void handleContactsClick(MouseEvent mouseEvent) {
+    }
+
+    public void handleMessagesClick(MouseEvent mouseEvent) {
+    }
+
+    public void handleSettingsClick(MouseEvent mouseEvent) {
+    }
+
+    public void handlePlayClick(MouseEvent mouseEvent) {
+    }
+
     @Getter
     public enum Subscene {
         NONE("", "", ""),
         LOGIN("login-view.fxml", "Авторизация", "account.png"),
         PROFILE("profile-view.fxml", "Профиль", "account.png"),
         REGISTER("registration-view.fxml", "Регистрация", "account.png"),
-        NEWS("news-view.fxml", "Новости", "news.png"),
+        NEWS("news-view.fxml", "Новости", "news_icon.png"),
         FORUM("forum-view.fxml", "Форум", "forum.png"),
         FRIENDS("friends-view.fxml", "Друзья", "friends.png"),
         SETTINGS("settings-view.fxml", "Настройки", "settings.png"),

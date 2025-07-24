@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.shape.SVGPath?>
+
+<SVGPath
+        id="playButtonSvg"
+        content="M6 3 L20 12 L6 21 Z"
+        fill="transparent"
+        strokeWidth="2"
+        strokeLineCap="round"
+        strokeLineJoin="round"
+        styleClass="play-icon-svg"
+        style="-fx-shape-antialiased: true;"
+        />

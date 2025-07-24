@@ -118,21 +118,11 @@ public class Main extends Application {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("scenes/launcher-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        /*
-            Делаем так, чтоб окно можно было передвигать в любой точке
-        */
-        scene.setOnMousePressed(event -> {
-            xOffset = stage.getX() - event.getScreenX();
-            yOffset = stage.getY() - event.getScreenY();
-        });
-        scene.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX() + xOffset);
-            stage.setY(event.getScreenY() + yOffset);
-        });
+
         stage.setTitle("TypicalLauncher");
         stage.setScene(scene);
         stage.setResizable(true);
-        stage.getIcons().add(new Image(ResourceHelper.getResourceByType(ResourceHelper.ResourceFolder.IMAGES, "ico.png")));
+        //stage.getIcons().add(new Image(ResourceHelper.getResourceByType(ResourceHelper.ResourceFolder.IMAGES, "ico.png")));
         stage.initStyle(StageStyle.TRANSPARENT);
         GLOBAL_STAGE = stage;
 
@@ -142,7 +132,7 @@ public class Main extends Application {
 
         Platform.setImplicitExit(false);
         if (SystemTray.isSupported()){
-            generatePopupMenu();
+            //generatePopupMenu();
         }
 
 
