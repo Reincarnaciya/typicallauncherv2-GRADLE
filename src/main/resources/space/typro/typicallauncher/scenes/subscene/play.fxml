@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.net.URL?>
+
+<VBox xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="space.typro.typicallauncher.controllers.scenes.subscenes.PlayController"
+      stylesheets="@../../styles.css">
+    <padding>
+        <Insets top="8.0" right="8.0" bottom="8.0" left="8.0"/>
+    </padding>
+
+    <children>
+        <VBox spacing="8.0" maxWidth="800.0">
+            <padding>
+                <Insets bottom="8.0"/>
+            </padding>
+
+            <children>
+                <Label text="Game Servers" styleClass="article-title">
+                    <padding>
+                        <Insets bottom="8.0"/>
+                    </padding>
+                </Label>
+
+                <!-- ScrollPane для прокрутки списка серверов -->
+                <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+                    <content>
+                        <VBox fx:id="serversContainer" spacing="8.0">
+                            <!-- Серверы будут добавляться здесь динамически -->
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+    </children>
+</VBox>

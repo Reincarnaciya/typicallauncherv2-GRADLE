@@ -5,7 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="микро фикс">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/nav/profile_icon.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/nav/profile_icon.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/Server.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/models/ServerCardUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/scenes/news-article.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/scenes/subscene/news.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/scenes/subscene/play.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/ServerPane.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/LauncherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/LauncherController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/NewsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/NewsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/PlayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/PlayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/models/NewsArticle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/models/NewsArticle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/models/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/nav/play_icon.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/nav/play_icon.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/scenes/launcher-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/scenes/launcher-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,8 +37,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -48,31 +65,37 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.Main.main()].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [dependencies].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [jar].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [run].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Rein/IdeaProjects/typicallauncherv2-GRADLE/src/main/resources/space/typro/typicallauncher&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher\scenes" />
       <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher\images\nav" />
       <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher" />
       <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources" />
@@ -187,7 +210,13 @@
       <workItem from="1753212859123" duration="597000" />
       <workItem from="1753221614248" duration="259000" />
       <workItem from="1753314610818" duration="4766000" />
-      <workItem from="1753365223785" duration="9300000" />
+      <workItem from="1753365223785" duration="11998000" />
+      <workItem from="1753542909525" duration="2398000" />
+      <workItem from="1753594816015" duration="6339000" />
+      <workItem from="1753636193335" duration="2612000" />
+      <workItem from="1753709624961" duration="4295000" />
+      <workItem from="1753729750426" duration="810000" />
+      <workItem from="1753818769128" duration="2167000" />
     </task>
     <task id="LOCAL-00001" summary="Начало вёрстки.. (спасите)">
       <option name="closed" value="true" />
@@ -229,7 +258,15 @@
       <option name="project" value="LOCAL" />
       <updated>1753374972437</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="микро фикс">
+      <option name="closed" value="true" />
+      <created>1753375116388</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1753375116388</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

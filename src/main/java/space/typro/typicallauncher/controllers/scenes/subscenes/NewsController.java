@@ -31,7 +31,6 @@ public class NewsController {
                         LocalDate.of(2024, 1, 15),
                         "Major updates to the TyPro network featuring enhanced security and improved performance.",
                         List.of(
-                                "Enhanced anti-cheat protection",
                                 "Improved server stability",
                                 "New player verification system",
                                 "Updated launcher interface"

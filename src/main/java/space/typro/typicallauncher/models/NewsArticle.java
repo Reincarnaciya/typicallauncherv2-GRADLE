@@ -1,9 +1,13 @@
 package space.typro.typicallauncher.models;
 
+import lombok.Getter;
+
 import java.time.LocalDate;
 import java.util.List;
 
+@Getter
 public class NewsArticle {
+    // Getters
     private final String title;
     private final String tag;
     private final LocalDate date;
@@ -18,10 +22,4 @@ public class NewsArticle {
         this.changes = changes;
     }
 
-    // Getters
-    public String getTitle() { return title; }
-    public String getTag() { return tag; }
-    public LocalDate getDate() { return date; }
-    public String getDescription() { return description; }
-    public List<String> getChanges() { return changes; }
 }

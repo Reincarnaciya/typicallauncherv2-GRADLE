@@ -12,12 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.Group?>
-<AnchorPane prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="space.typro.typicallauncher.controllers.scenes.LauncherController">
+<AnchorPane fx:id="mainPanel" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/24.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="space.typro.typicallauncher.controllers.scenes.LauncherController">
     <!-- Верхняя панель -->
-    <HBox id="titleBar" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="800.0" styleClass="title-bar">
+    <HBox onMouseDragged="#handleWindowDrag" onMousePressed="#handleWindowPress" id="titleBar" alignment="CENTER_RIGHT" prefHeight="40.0" prefWidth="800.0" styleClass="title-bar">
         <Pane onMouseDragged="#handleWindowDrag" onMousePressed="#handleWindowPress" prefHeight="40.0" prefWidth="100.0" HBox.hgrow="ALWAYS" />
         <StackPane alignment="CENTER" HBox.hgrow="ALWAYS">
-            <Label id="sceneTitle" styleClass="scene-title" text="Launcher" />
+            <Label fx:id="sceneTitle" id="sceneTitle" styleClass="scene-title" text="Launcher" />
         </StackPane>
         <Region HBox.hgrow="ALWAYS" />
         <Button id="minimizeButton" mnemonicParsing="false" onAction="#handleMinimize" prefHeight="40.0" prefWidth="50.0" styleClass="title-button" text="─" />
@@ -29,35 +29,35 @@
         <!-- Компактная навигационная панель -->
         <VBox id="navPanel" alignment="TOP_CENTER" prefHeight="560.0" prefWidth="60.0" spacing="10" styleClass="nav-panel">
             <!-- Кнопка Новости -->
-            <StackPane onMouseClicked="#handleNewsClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
+            <StackPane fx:id="newsButton" onMouseClicked="#handleNewsClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
                 <Group>
                     <fx:include source="../images/nav/news_icon.fxml" />
                 </Group>
             </StackPane>
 
             <!-- Кнопка Профиль -->
-            <StackPane onMouseClicked="#handleProfileClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
+            <StackPane fx:id="profileButton" onMouseClicked="#handleProfileClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
                 <Group>
                     <fx:include source="../images/nav/profile_icon.fxml" />
                 </Group>
             </StackPane>
 
             <!-- Кнопка Форум -->
-            <StackPane onMouseClicked="#handleForumClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
+            <StackPane fx:id="forumButton" onMouseClicked="#handleForumClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
                 <Group>
                     <fx:include source="../images/nav/forum_icon.fxml" />
                 </Group>
             </StackPane>
 
             <!-- Кнопка Контакты -->
-            <StackPane onMouseClicked="#handleContactsClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
+            <StackPane fx:id="contactButton" onMouseClicked="#handleContactsClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
                 <Group>
                     <fx:include source="../images/nav/contact_icon.fxml" />
                 </Group>
             </StackPane>
 
             <!-- Кнопка Сообщения -->
-            <StackPane onMouseClicked="#handleMessagesClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
+            <StackPane fx:id="messageButton" onMouseClicked="#handleMessagesClick" prefHeight="50.0" prefWidth="50.0" styleClass="nav-button">
                 <Group>
                     <fx:include source="../images/nav/message_icon.fxml" />
                 </Group>
@@ -66,23 +66,27 @@
             <Region VBox.vgrow="ALWAYS" />
 
             <!-- Кнопка Настройки -->
-            <StackPane onMouseClicked="#handleSettingsClick" prefHeight="50.0" prefWidth="50.0" styleClass="settings-button">
+            <StackPane fx:id="settingsButton" onMouseClicked="#handleSettingsClick" prefHeight="50.0" prefWidth="50.0" styleClass="settings-nav-button">
                 <Group>
                     <fx:include source="../images/nav/settings_icon.fxml" />
                 </Group>
             </StackPane>
 
             <!-- Кнопка Играть -->
-            <StackPane onMouseClicked="#handlePlayClick" prefHeight="50.0" prefWidth="50.0" styleClass="play-button">
+            <StackPane fx:id="playButton" onMouseClicked="#handlePlayClick" prefHeight="50.0" prefWidth="50.0" styleClass="play-nav-button">
                 <Group>
                     <fx:include source="../images/nav/play_icon.fxml" />
                 </Group>
             </StackPane>
         </VBox>
 
-        <!-- Основной контент -->
-        <Pane layoutX="60.0" prefHeight="560.0" prefWidth="740.0" styleClass="content-pane">
-            <!-- Здесь будет основной контент -->
-        </Pane>
+        <AnchorPane fx:id="contentPane" layoutX="60.0" prefHeight="560.0" prefWidth="740.0" styleClass="content-pane">
+            <!-- Контент с отступами -->
+            <Pane fx:id="centeredContent" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                  AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20">
+                <!-- Здесь будет основной контент -->
+            </Pane>
+        </AnchorPane>
+
     </AnchorPane>
 </AnchorPane>

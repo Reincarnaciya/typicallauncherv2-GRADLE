@@ -172,7 +172,7 @@ public class LoginController extends BaseController {
                 if (account != null) {
                     System.err.println(account);
                     if (account.isAuthorized){
-                        LauncherController.loadSubscene(LauncherController.Subscene.PROFILE);
+
                     }
                 }
             } catch (AuthenticationException e) {

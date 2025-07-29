@@ -4,10 +4,10 @@
 <SVGPath
         id="playButtonSvg"
         content="M6 3 L20 12 L6 21 Z"
-        fill="transparent"
+        fill="black"
+        stroke="white"
         strokeWidth="1.5"
         strokeLineCap="round"
         strokeLineJoin="round"
-        styleClass="play-icon-svg"
         style="-fx-shape-antialiased: true;"
-        />
+/>
