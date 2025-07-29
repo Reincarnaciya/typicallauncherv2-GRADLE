@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane stylesheets="@../../styles.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="space.typro.typicallauncher.controllers.scenes.subscenes.SettingsController">
+
+    <ScrollPane fitToWidth="true"
+                hbarPolicy="NEVER"
+                AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0"
+                AnchorPane.rightAnchor="0"
+                AnchorPane.topAnchor="0">
+
+        <VBox spacing="20" styleClass="content-pane">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- Основные настройки -->
+            <Label text="Основные настройки" styleClass="article-title"/>
+
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="150"/>
+                    <ColumnConstraints hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <!-- Настройки RAM -->
+                <Label text="Выделенная память (Gb):" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="0" GridPane.columnIndex="1">
+                    <Slider fx:id="ramSlider" min="0.5" max="8" blockIncrement="0.5" majorTickUnit="1"
+                            minorTickCount="1" snapToTicks="true" styleClass="settings-slider"/>
+                    <TextField fx:id="ramTextField" editable="false" styleClass="settings-text-field"/>
+                </HBox>
+
+                <!-- Настройки разрешения -->
+                <Label text="Разрешение экрана:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="1" GridPane.columnIndex="1">
+                    <TextField fx:id="widthTextField" styleClass="settings-text-field" promptText="Ширина"/>
+                    <Label text="x"/>
+                    <TextField fx:id="heightTextField" styleClass="settings-text-field" promptText="Высота"/>
+                </HBox>
+
+                <!-- Пути -->
+                <Label text="Путь к клиентам:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <HBox spacing="10" alignment="CENTER_LEFT" GridPane.rowIndex="2" GridPane.columnIndex="1">
+                    <Hyperlink fx:id="clientPathHyperlink" styleClass="settings-hyperlink"/>
+                    <Button fx:id="openLauncherFolderButton" text="Открыть папку лаунчера" styleClass="settings-button"/>
+                </HBox>
+            </GridPane>
+
+            <!-- Разделитель -->
+            <Separator styleClass="settings-separator"/>
+
+            <!-- Дополнительные опции -->
+            <VBox spacing="10">
+                <Label text="Дополнительные опции" styleClass="article-title"/>
+                <VBox spacing="8" style="-fx-padding: 0 0 0 10;">
+                    <CheckBox fx:id="fullscreenCheckBox" text="Полноэкранный режим" styleClass="settings-checkbox"/>
+                    <CheckBox fx:id="hideLauncherCheckBox" text="Скрывать лаунчер при запуске игры" styleClass="settings-checkbox"/>
+                </VBox>
+            </VBox>
+
+            <!-- Кнопки управления -->
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button fx:id="resetButton" text="Сбросить настройки" styleClass="settings-button"/>
+                <Button fx:id="saveButton" text="Сохранить настройки" styleClass="settings-button"/>
+            </HBox>
+
+            <!-- Версия лаунчера -->
+            <Text fx:id="launcherVersionText" styleClass="article-date" fill="white"/>
+        </VBox>
+    </ScrollPane>
+</AnchorPane>
