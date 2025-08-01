@@ -1,51 +1,48 @@
+/* ==================== */
+/* FONT FACE DEFINITION */
+/* ==================== */
 @font-face {
     -fx-font-family: "Inter";
     src: url("Inter.otf");
 }
 
-/* Базовые стили */
-* {
+/* ============== */
+/* BASE STYLES    */
+/* ============== */
+.root, * {
     -fx-font-family: "Inter";
+    -fx-text-fill: #ebfafa;
 }
+
 .root {
     -fx-background-color: #0f0f0f;
-    -fx-font-family: "Inter";
 }
 
-Text {
+Text, Label {
     -fx-text-fill: #ebfafa;
-    -fx-font-family: "Inter";
 }
 
-Label {
-    -fx-text-fill: #ebfafa;
-    -fx-font-family: "Inter";
-}
-
-/* Стили заголовка */
+/* ============== */
+/* TITLE BAR      */
+/* ============== */
 .title-bar {
     -fx-background-color: #000000;
     -fx-padding: 0;
 }
 
 .scene-title {
-    -fx-text-fill: #ebfafa;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 0 15px;
     -fx-max-width: infinity;
-    -fx-font-family: "Inter";
 }
 
-/* Кнопки заголовка */
 .title-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #ebfafa;
     -fx-font-size: 16px;
     -fx-border-width: 0;
     -fx-cursor: hand;
-    -fx-font-family: "Inter";
     -fx-transition: -fx-background-color 150ms, -fx-text-fill 150ms;
 }
 
@@ -58,6 +55,9 @@ Label {
     -fx-text-fill: white;
 }
 
+/* ============== */
+/* NAVIGATION     */
+/* ============== */
 .nav-button, .settings-nav-button {
     -fx-background-color: transparent;
     -fx-cursor: hand;
@@ -70,20 +70,15 @@ Label {
     -fx-border-insets: 0;
     -fx-opacity: 0.9;
 }
-.nav-button.selected {
-    -fx-border-color: white;
-}
-.settings-nav-button.selected {
+
+.nav-button.selected, .settings-nav-button.selected {
     -fx-border-color: white;
 }
 
-/* Стили при наведении для навигационных кнопок */
 .nav-button:hover, .settings-nav-button:hover {
     -fx-border-color: rgba(255, 255, 255, 0.9);
 }
 
-
-/* Стили для кнопки Play */
 .play-nav-button {
     -fx-border-color: rgba(38, 38, 38, 0.7);
     -fx-background-color: rgba(255, 255, 255, 0.9);
@@ -95,22 +90,13 @@ Label {
     -fx-background-color: black;
     -fx-border-color: rgba(255, 255, 255, 1.0);
     -fx-opacity: 1.0;
-    -fx-cursor: hand;
 }
 
-/* Стили контентной области */
-.content-pane {
-    -fx-background-color: #0f0f0f;
-}
-
-/* Стили иконок */
 .nav-icon {
     -fx-font-size: 20px;
-    -fx-text-fill: #ebfafa;
     -fx-alignment: center;
 }
 
-/* SVG иконки */
 SVGPath {
     -fx-stroke: #ebfafa;
     -fx-stroke-width: 1.5;
@@ -118,20 +104,16 @@ SVGPath {
     -fx-stroke-line-join: round;
 }
 
-/* Состояния при наведении для SVG */
 .nav-button:hover > SVGPath,
 .settings-nav-button:hover > SVGPath {
     -fx-stroke: #ebfafa;
 }
 
-
-/* Убираем стандартные отступы у кнопок */
 .nav-button, .play-nav-button, .settings-nav-button {
     -fx-padding: 5;
     -fx-content-display: center;
 }
 
-/* Убираем эффекты у ImageView внутри кнопок */
 .nav-button > .image-view,
 .settings-nav-button > .image-view,
 .play-nav-button > .image-view {
@@ -139,7 +121,6 @@ SVGPath {
     -fx-opacity: 1;
 }
 
-/* Отключаем стандартное свечение при фокусе */
 .nav-button:focused,
 .settings-nav-button:focused,
 .play-nav-button:focused {
@@ -148,22 +129,24 @@ SVGPath {
     -fx-faint-focus-color: transparent;
 }
 
-
-/* News Container Styles */
-.anchor-pane-fill {
+/* ============== */
+/* CONTENT AREAS  */
+/* ============== */
+.content-pane, .anchor-pane-fill {
     -fx-background-color: #0f0f0f;
 }
 
+/* ============== */
+/* NEWS SECTION   */
+/* ============== */
 .news-container {
     -fx-background-color: transparent;
     -fx-padding: 16px;
 }
 
-/* News Article Styles */
 .news-article {
     -fx-background-color: #1a1a1a;
     -fx-background-radius: 8px;
-    -fx-border-radius: 8px;
     -fx-border-color: rgba(38, 38, 38, 0.7);
     -fx-border-width: 1px;
     -fx-padding: 16px;
@@ -177,38 +160,29 @@ SVGPath {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 12, 0, 0, 3);
 }
 
-/* Article Title */
 .article-title {
-    -fx-text-fill: #ebfafa;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-wrap-text: true;
 }
 
-/* Article Metadata */
 .meta-container {
     -fx-alignment: center-left;
     -fx-padding: 4px 0 8px 0;
 }
 
 .article-tag {
-    -fx-padding: 4,0,8,0;
+    -fx-padding: 4 8 4 8;
     -fx-font-size: 12px;
     -fx-background-color: #1f1f1f;
     -fx-text-fill: #9E9E9E;
 }
 
-.article-date {
+.article-date, .meta-separator {
     -fx-text-fill: #9E9E9E;
     -fx-font-size: 12px;
 }
 
-.meta-separator {
-    -fx-text-fill: #9E9E9E;
-    -fx-font-size: 12px;
-}
-
-/* Article Description */
 .article-description {
     -fx-text-fill: #CCCCCC;
     -fx-font-size: 14px;
@@ -216,9 +190,7 @@ SVGPath {
     -fx-padding: 0 0 8px 0;
 }
 
-/* Changes Section */
 .changes-header {
-    -fx-text-fill: #ebfafa;
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-padding: 0 0 4px 0;
@@ -235,26 +207,20 @@ SVGPath {
     -fx-graphic-text-gap: 8px;
 }
 
-/* Bullet points for changes */
 .changes-list .label:before {
     -fx-content: "•";
     -fx-padding: 0 8px 0 0;
     -fx-text-fill: #00187a;
 }
 
-/* ScrollPane customization */
-.scroll-pane {
+/* ============== */
+/* SCROLL PANE    */
+/* ============== */
+.scroll-pane, .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
-.scroll-pane .viewport {
-    -fx-background-color: transparent;
-}
-
-.scroll-pane .scroll-bar:vertical {
-    -fx-background-color: transparent;
-}
-
+.scroll-pane .scroll-bar:vertical,
 .scroll-pane .scroll-bar:vertical .track {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -272,7 +238,7 @@ SVGPath {
 .scroll-pane .scroll-bar:vertical .increment-button,
 .scroll-pane .scroll-bar:vertical .decrement-button {
     -fx-background-color: transparent;
-    -fx-padding: 0 0 0 0;
+    -fx-padding: 0;
 }
 
 .scroll-pane .scroll-bar:vertical .increment-arrow,
@@ -281,7 +247,9 @@ SVGPath {
     -fx-padding: 0;
 }
 
-/* Settings specific styles */
+/* ============== */
+/* SETTINGS       */
+/* ============== */
 .settings-slider .track {
     -fx-background-color: #2a2a2a;
     -fx-background-radius: 2px;
@@ -298,7 +266,6 @@ SVGPath {
 
 .settings-text-field {
     -fx-background-color: #1a1a1a;
-    -fx-text-fill: #ebfafa;
     -fx-border-color: rgba(38, 38, 38, 0.7);
     -fx-border-radius: 4px;
     -fx-border-width: 1px;
@@ -311,7 +278,6 @@ SVGPath {
 }
 
 .settings-checkbox {
-    -fx-text-fill: #ebfafa;
     -fx-cursor: hand;
 }
 
@@ -327,7 +293,6 @@ SVGPath {
 }
 
 .settings-hyperlink {
-    -fx-text-fill: #ebfafa;
     -fx-border-color: transparent;
     -fx-underline: false;
 }
@@ -337,43 +302,26 @@ SVGPath {
     -fx-underline: true;
     -fx-cursor: hand;
 }
+
 .settings-button {
     -fx-background-color: #000000;
     -fx-text-fill: white;
     -fx-border-color: rgba(255, 255, 255, 0.5);
 }
+
 .settings-button:hover {
     -fx-cursor: hand;
     -fx-background-color: #676767;
-    -fx-border-color: rgba(255, 255, 255, 0.5);
 }
+
 .settings-separator .line {
     -fx-border-color: #3a3a3a;
-    -fx-border-width: 1px, 0, 0, 0;
+    -fx-border-width: 1px 0 0 0;
 }
 
-.server-card {
-    -fx-background-color: #1e1e1e;
-    -fx-border-color: #2e2e2e;
-    -fx-border-radius: 4px;
-    -fx-background-radius: 4px;
-}
-
-.heading {
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 24;
-    -fx-font-family: "Inter";
-}
-
-.server-name {
-    -fx-text-fill: #ffffff;
-}
-
-.server-description {
-    -fx-text-fill: #a0a0a0;
-}
-
-/* Стили для карточки сервера */
+/* ============== */
+/* SERVER CARDS   */
+/* ============== */
 .server-card {
     -fx-background-color: #1e1e1e;
     -fx-border-color: #2e2e2e;
@@ -385,31 +333,25 @@ SVGPath {
 }
 
 .server-name {
-    -fx-text-fill: #ffffff;
-    -fx-font-family: "Inter";
     -fx-font-size: 16px;
     -fx-font-weight: bold;
 }
 
 .server-description {
     -fx-text-fill: #a0a0a0;
-    -fx-font-family: "Inter";
     -fx-font-size: 14px;
 }
 
 .player-count {
     -fx-text-fill: #a0a0a0;
-    -fx-font-family: "Inter";
     -fx-font-size: 12px;
 }
 
-/* Стили для кнопок */
 .connect-button {
     -fx-background-color: white;
     -fx-text-fill: black;
     -fx-padding: 6 24 6 24;
     -fx-cursor: hand;
-    -fx-font-family: "Inter";
 }
 
 .connect-button:hover {
@@ -421,51 +363,51 @@ SVGPath {
     -fx-text-fill: #a0a0a0;
     -fx-padding: 6 24 6 24;
     -fx-cursor: default;
-    -fx-font-family: "Inter";
 }
 
-/* Стили статусов (уже должны быть в вашем CSS) */
+/* ============== */
+/* STATUS LABELS  */
+/* ============== */
+.status-online, .status-maintenance,
+.status-offline, .status-starting,
+.status-whitelist {
+    -fx-padding: 2 6 2 6;
+    -fx-font-size: 11px;
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
 .status-online {
     -fx-text-fill: #4ade80;
     -fx-background-color: rgba(74, 222, 128, 0.1);
-    -fx-padding: 2 6 2 6;
-    -fx-font-size: 11px;
-    -fx-font-family: "Inter";
 }
 
 .status-maintenance {
     -fx-text-fill: #facc15;
     -fx-background-color: rgba(250, 204, 21, 0.1);
-    -fx-padding: 2 6 2 6;
-    -fx-font-size: 11px;
-    -fx-font-family: "Inter";
 }
 
 .status-offline {
     -fx-text-fill: #ef4444;
     -fx-background-color: rgba(239, 68, 68, 0.1);
-    -fx-padding: 2 6 2 6;
-    -fx-font-size: 11px;
-    -fx-font-family: "Inter";
 }
 
 .status-starting {
     -fx-text-fill: #f59e0b;
     -fx-background-color: rgba(245, 158, 11, 0.1);
-    -fx-padding: 2 6 2 6;
-    -fx-font-size: 11px;
-    -fx-font-family: "Inter";
 }
 
 .status-whitelist {
     -fx-text-fill: #6366f1;
     -fx-background-color: rgba(99, 102, 241, 0.1);
-    -fx-padding: 2 6 2 6;
-    -fx-font-size: 11px;
-    -fx-font-family: "Inter";
 }
 
-/* Дополнительные стили */
+/* ============== */
+/* MISC ELEMENTS  */
+/* ============== */
+.heading {
+    -fx-font-size: 24;
+}
+
 .server-info {
     -fx-spacing: 4px;
 }
