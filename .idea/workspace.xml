@@ -4,16 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="Рефакторинг css, теперь удобно читать его..">
-      <change afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DownloadManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/images/eye_closed.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/scenes/subscene/login.fxml" afterDir="false" />
+    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="Добавлена вкладка &quot;Профиль&quot;. Начата работа над закачкой клиента.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/LauncherController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/LauncherController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DirManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DirManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DownloadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DownloadTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/alert.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/alert.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -253,7 +248,7 @@
       <workItem from="1754244248469" duration="1887000" />
       <workItem from="1754288831509" duration="32000" />
       <workItem from="1754471481774" duration="2442000" />
-      <workItem from="1754474044094" duration="2382000" />
+      <workItem from="1754474044094" duration="4179000" />
     </task>
     <task id="LOCAL-00001" summary="Начало вёрстки.. (спасите)">
       <option name="closed" value="true" />
@@ -311,7 +306,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754016723599</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Добавлена вкладка &quot;Профиль&quot;. Начата работа над закачкой клиента.">
+      <option name="closed" value="true" />
+      <created>1754476765292</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1754476765292</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,6 +336,7 @@
     <MESSAGE value="С 0 начата работа над визуалом, логика не работает, зато красивые растровые картинки в навигационном меню" />
     <MESSAGE value="микро фикс" />
     <MESSAGE value="Рефакторинг css, теперь удобно читать его.." />
-    <option name="LAST_COMMIT_MESSAGE" value="Рефакторинг css, теперь удобно читать его.." />
+    <MESSAGE value="Добавлена вкладка &quot;Профиль&quot;. Начата работа над закачкой клиента." />
+    <option name="LAST_COMMIT_MESSAGE" value="Добавлена вкладка &quot;Профиль&quot;. Начата работа над закачкой клиента." />
   </component>
 </project>

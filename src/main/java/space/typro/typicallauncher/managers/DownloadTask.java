@@ -35,7 +35,6 @@ public class DownloadTask {
                 }
             }
 
-            // Если файл существует, но его размер не совпадает с сохраненным прогрессом
             if (Files.exists(outputPath)) {
                 long actualSize = Files.size(outputPath);
                 if (actualSize != downloadedBytes) {
@@ -63,9 +62,7 @@ public class DownloadTask {
 
             // Устанавливаем диапазон для докачки
             if (downloadedBytes > 0) {
-                // Проверяем, не изменился ли файл на сервере
                 if (downloadedBytes >= totalFileSize) {
-                    // Файл на сервере меньше, чем уже загружено - начинаем заново
                     Files.deleteIfExists(outputPath);
                     downloadedBytes = 0;
                 } else {

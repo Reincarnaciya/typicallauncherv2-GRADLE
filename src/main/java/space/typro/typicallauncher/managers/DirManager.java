@@ -1,5 +1,6 @@
 package space.typro.typicallauncher.managers;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Getter
 @Slf4j
 public class DirManager {
 
@@ -111,10 +113,6 @@ public class DirManager {
         } catch (IOException e) {
             log.error("Failed to open directory with fallback method", e);
         }
-    }
-
-    public File getDir() {
-        return dir;
     }
 
     public String getName() {

@@ -504,3 +504,8 @@ SVGPath {
     -fx-pref-width: 600px;
     -fx-pref-height: 30px;
 }
+
+.nav-panel {
+    -fx-padding: 4;
+    -fx-background-color: black;
+}
