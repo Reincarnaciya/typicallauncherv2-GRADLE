@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="space.typro.typicallauncher.controllers.scenes.subscenes.LoginController"
+            styleClass="content-pane"
+            stylesheets="@../../styles.css">
+
+    <!-- Основной контейнер формы -->
+    <VBox alignment="CENTER" spacing="30" prefWidth="600" prefHeight="400"
+          AnchorPane.topAnchor="50"
+          AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100">
+
+        <!-- Заголовок -->
+        <Text text="Вход в аккаунт" styleClass="heading" fill="white"/>
+
+        <!-- Контейнер формы входа -->
+        <VBox alignment="CENTER_LEFT" spacing="20" styleClass="login-container">
+            <!-- Выбор типа входа -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <RadioButton fx:id="withAccount" text="С аккаунтом" selected="true"
+                             styleClass="settings-checkbox"/>
+                <RadioButton fx:id="withoutAccount" text="Без аккаунта"
+                             styleClass="settings-checkbox"/>
+            </HBox>
+
+            <!-- Список аккаунтов -->
+            <ComboBox fx:id="accountList" styleClass="settings-combo-box"
+                      promptText="Выберите аккаунт" visibleRowCount="5"/>
+
+            <!-- Поля ввода -->
+            <VBox spacing="8">
+                <Label text="Логин или email" styleClass="login-label"/>
+                <TextField fx:id="login" styleClass="settings-text-field" promptText="Введите логин"/>
+
+                <Label text="Пароль" styleClass="login-label"/>
+                <HBox alignment="CENTER_LEFT" spacing="5">
+                    <HBox styleClass="password-field-container" >
+                        <PasswordField fx:id="password" styleClass="password-text-field"
+                                       promptText="Введите пароль"/>
+                    </HBox>
+                    <Button fx:id="passwordVisibleImage" styleClass="eye-toggle-button">
+                        <graphic>
+                            <fx:include source="../../images/eye_closed.fxml" />
+                        </graphic>
+                    </Button>
+                </HBox>
+            </VBox>
+
+            <!-- Настройки аккаунта -->
+            <VBox spacing="8">
+                <CheckBox fx:id="saveAccount" text="Запомнить аккаунт" styleClass="settings-checkbox"/>
+                <CheckBox fx:id="autoLogin" text="Автоматический вход" styleClass="settings-checkbox"/>
+            </VBox>
+
+            <!-- Кнопка входа -->
+            <Button fx:id="auth" text="Войти" styleClass="settings-button"
+                    maxWidth="Infinity"/>
+
+            <!-- Ссылка на регистрацию -->
+            <Hyperlink fx:id="register" text="Нет аккаунта? Зарегистрируйтесь"
+                       styleClass="settings-hyperlink"/>
+        </VBox>
+    </VBox>
+</AnchorPane>

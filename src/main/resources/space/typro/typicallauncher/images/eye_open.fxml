@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.shape.SVGPath?>
+<?import javafx.scene.effect.DropShadow?>
+
+<Group xmlns="http://javafx.com/javafx"
+       xmlns:fx="http://javafx.com/fxml">
+    <!-- Внешний контур глаза (центр в 12,12) -->
+    <SVGPath content="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
+             fill="transparent"
+             stroke="white"
+             strokeWidth="1.5"
+             strokeLineCap="round"
+             strokeLineJoin="round"
+             style="-fx-shape-antialiased: true; -fx-stroke-type: centered;">
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.5)" radius="1" spread="0.5"/>
+        </effect>
+    </SVGPath>
+
+    <!-- Точно центрированный зрачок -->
+    <SVGPath content="M12 12a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+             fill="white"
+             stroke="transparent"
+             style="-fx-shape-antialiased: true;">
+        <!-- Точная подгонка положения -->
+        <translateX>-2.5</translateX>
+        <translateY>2.5</translateY>
+        <effect>
+            <DropShadow color="rgba(0,0,0,0.3)" radius="0.5" spread="0.3"/>
+        </effect>
+    </SVGPath>
+</Group>

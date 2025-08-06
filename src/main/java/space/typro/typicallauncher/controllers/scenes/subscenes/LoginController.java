@@ -1,6 +1,9 @@
 package space.typro.typicallauncher.controllers.scenes.subscenes;
 
+import javafx.animation.Animation;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -8,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import lombok.extern.slf4j.Slf4j;
+import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.ResourceHelper;
 import space.typro.typicallauncher.controllers.BaseController;
 import space.typro.typicallauncher.controllers.scenes.LauncherController;
@@ -18,6 +22,7 @@ import space.typro.typicallauncher.utils.NodeUtil;
 
 import javax.security.sasl.AuthenticationException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -31,7 +36,7 @@ public class LoginController extends BaseController {
     private static final String PASSWORD_REGEX = "^[a-zA-Z\\d_!]*$";
 
     @FXML
-    private ImageView passwordVisibleImage;
+    private Button passwordVisibleImage;
     @FXML
     private AnchorPane loginPane;
     @FXML
@@ -54,6 +59,10 @@ public class LoginController extends BaseController {
     private ComboBox<Account> accountList;
 
     private final TextField passwordShowField = new TextField();
+
+
+
+
     private boolean isPasswordVisible = false;
 
 
@@ -93,65 +102,47 @@ public class LoginController extends BaseController {
     }
 
     private void configurePasswordVisibilityToggle() {
-        passwordVisibleImage.setOnMousePressed(e -> togglePasswordVisibility(true));
-        passwordVisibleImage.setOnMouseReleased(e -> togglePasswordVisibility(false));
+        passwordVisibleImage.setOnMousePressed(e -> Platform.runLater(() -> togglePasswordVisibility(true)));
+        passwordVisibleImage.setOnMouseReleased(e -> Platform.runLater(() -> togglePasswordVisibility(false)));
     }
+
+    private PasswordField tempPasswordField;
 
     private void togglePasswordVisibility(boolean visible) {
-        try {
-            String imagePath = visible ? "login/Глаз-открытый.png" : "login/Глаз-закрытый.png";
-            passwordVisibleImage.setImage(loadImage(imagePath));
+        tempPasswordField = password;
 
-            if (visible) {
-                showPasswordText();
-            } else {
-                hidePasswordText();
-            }
-        } catch (Exception ex) {
-            log.error("Error toggling password visibility", ex);
-        }
-    }
+        if (visible) {
+            // Копируем текст
+            passwordShowField.setText(tempPasswordField.getText());
 
-    private Image loadImage(String path) {
-        return new Image(ResourceHelper.getResourceByType(
-                ResourceHelper.ResourceFolder.IMAGES, path
-        ));
-    }
+            // Копируем стили и классы
+            passwordShowField.getStyleClass().setAll(tempPasswordField.getStyleClass());
 
-    private void initializePasswordShowField() {
-        passwordShowField.prefWidthProperty().bind(password.prefWidthProperty());
-        passwordShowField.minWidthProperty().bind(password.minWidthProperty());
-        passwordShowField.maxWidthProperty().bind(password.maxWidthProperty());
 
-        passwordShowField.getStyleClass().setAll(password.getStyleClass());
 
-        AnchorPane.setTopAnchor(passwordShowField, AnchorPane.getTopAnchor(password));
-        AnchorPane.setBottomAnchor(passwordShowField, AnchorPane.getBottomAnchor(password));
-        AnchorPane.setLeftAnchor(passwordShowField, AnchorPane.getLeftAnchor(password));
-        AnchorPane.setRightAnchor(passwordShowField, AnchorPane.getRightAnchor(password));
-    }
+            // Заменяем поле ввода
+            Pane parent = (Pane) tempPasswordField.getParent();
+            parent.getChildren().add(passwordShowField);
 
-    private void showPasswordText() {
-        if (!isPasswordVisible) {
-            initializePasswordShowField();
-            passwordShowField.setText(password.getText());
-            replaceNode(password, passwordShowField);
-            isPasswordVisible = true;
-        }
-    }
-
-    private void hidePasswordText() {
-        if (isPasswordVisible) {
+            parent.getChildren().remove(password);
+            // Фокусируем новое поле
+            passwordShowField.requestFocus();
+            passwordShowField.end();
+        } else {
+            // Возвращаем пароль
             password.setText(passwordShowField.getText());
-            replaceNode(passwordShowField, password);
-            isPasswordVisible = false;
+            password.setVisible(true);
+            Pane parent = (Pane) passwordShowField.getParent();
+            if (parent != null) {
+                parent.getChildren().remove(passwordShowField);
+                parent.getChildren().add(tempPasswordField);
+            }
+            password.requestFocus();
+            password.end();
         }
     }
 
-    private void replaceNode(Control oldNode, Control newNode) {
-        NodeUtil.replaceNode((Pane) oldNode.getParent(), oldNode, newNode);
-        newNode.requestFocus();
-    }
+
 
     private void addTextFilter(TextInputControl field, String regex) {
         field.textProperty().addListener((obs, oldVal, newVal) -> {

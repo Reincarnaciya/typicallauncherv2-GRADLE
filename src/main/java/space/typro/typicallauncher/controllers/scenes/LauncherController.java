@@ -95,6 +95,7 @@ public class LauncherController extends BaseController {
     public void handleProfileClick(MouseEvent mouseEvent) {
         resetButtonStyle();
         profileButton.getStyleClass().add("selected");
+        loadContent(Subscenes.LOGIN);
     }
 
     public void handleContactsClick(MouseEvent mouseEvent) {
@@ -159,7 +160,8 @@ public class LauncherController extends BaseController {
                 ResourceHelper.getResourceUrlByType(ResourceHelper.ResourceFolder.SUB_SCENES, "settings.fxml"),
                 "Настройки"
         ),
-        PLAY(ResourceHelper.getResourceUrlByType(ResourceHelper.ResourceFolder.SUB_SCENES, "play.fxml"), "Играть");
+        PLAY(ResourceHelper.getResourceUrlByType(ResourceHelper.ResourceFolder.SUB_SCENES, "play.fxml"), "Играть"),
+        LOGIN(ResourceHelper.getResourceUrlByType(ResourceHelper.ResourceFolder.SUB_SCENES, "login.fxml"), "Авторизация"),;
 
         private final URL fxmlUrl;
         private final String title;

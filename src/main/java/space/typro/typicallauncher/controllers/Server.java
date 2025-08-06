@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import space.typro.typicallauncher.models.ServerCardUI;
 
+import java.net.http.HttpClient;
+
 @Slf4j
 @Getter
 public class Server {
@@ -77,7 +79,10 @@ public class Server {
     }
 
     private void connectToServer() {
-        log.info("Connecting to server " + name);
+        log.info("Connecting to server {}", name);
+
+
+        
     }
 
     @Getter

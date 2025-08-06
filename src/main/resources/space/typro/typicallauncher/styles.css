@@ -84,6 +84,7 @@ Text, Label {
     -fx-background-color: rgba(255, 255, 255, 0.9);
     -fx-opacity: 0.9;
     -fx-transition: all 150ms;
+    -fx-cursor: HAND;
 }
 
 .play-nav-button:hover {
@@ -318,7 +319,83 @@ SVGPath {
     -fx-border-color: #3a3a3a;
     -fx-border-width: 1px 0 0 0;
 }
+/* ============== */
+/* LOGIN STYLES   */
+/* ============== */
+.login-container {
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(38, 38, 38, 0.7);
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0, 0, 2);
+}
 
+.login-label {
+    -fx-text-fill: #ebfafa;
+    -fx-font-size: 14px;
+}
+
+.password-field-container {
+    -fx-spacing: 0;
+    -fx-alignment: center-left;
+}
+
+.eye-toggle-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+}
+
+.eye-toggle-button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.login-radio {
+    -fx-text-fill: #ebfafa;
+    -fx-font-size: 14px;
+}
+
+.login-checkbox {
+    -fx-text-fill: #ebfafa;
+    -fx-font-size: 14px;
+}
+.settings-combo-box {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: rgba(38, 38, 38, 0.7);
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-text-fill: #ebfafa;
+}
+
+.settings-combo-box .list-cell {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #ebfafa;
+}
+
+.settings-combo-box .list-view {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: rgba(38, 38, 38, 0.7);
+}
+
+.settings-combo-box .arrow {
+    -fx-background-color: #ebfafa;
+}
+.eye-toggle-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 5px;
+    -fx-min-width: 30px;
+    -fx-pref-width: 30px;
+    -fx-max-width: 30px;
+    -fx-min-height: 30px;
+    -fx-pref-height: 30px;
+    -fx-max-height: 30px;
+}
 /* ============== */
 /* SERVER CARDS   */
 /* ============== */
@@ -406,6 +483,7 @@ SVGPath {
 /* ============== */
 .heading {
     -fx-font-size: 24;
+    -fx-text-fill: white !important;
 }
 
 .server-info {
@@ -415,4 +493,14 @@ SVGPath {
 .status-box {
     -fx-spacing: 8px;
     -fx-alignment: center-left;
+}
+
+.password-text-field {
+    -fx-background-color: #1a1a1a;
+    -fx-border-color: rgba(38, 38, 38, 0.7);
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 30px;
 }
