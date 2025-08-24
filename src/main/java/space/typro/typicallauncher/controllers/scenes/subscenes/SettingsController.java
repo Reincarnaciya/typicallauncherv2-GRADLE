@@ -1,6 +1,7 @@
 package space.typro.typicallauncher.controllers.scenes.subscenes;
 
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -10,13 +11,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import space.typro.directorymanager.DirectoryManager;
 import space.typro.typicallauncher.Main;
 import space.typro.typicallauncher.controllers.BaseController;
 import space.typro.typicallauncher.events.EventDispatcher;
 import space.typro.typicallauncher.events.Events;
-import space.typro.typicallauncher.managers.DirManager;
 import space.typro.typicallauncher.managers.SettingsManager;
-import space.typro.typicallauncher.managers.UserPC;
+import space.typro.common.UserPC;
 import space.typro.typicallauncher.utils.LauncherAlert;
 import space.typro.typicallauncher.utils.RamConverter;
 
@@ -84,8 +85,10 @@ public class SettingsController extends BaseController {
         clientPathHyperlink.setOnMouseClicked(this::changeClientDir);
         fullscreenCheckBox.setOnMouseClicked(this::fullscreenCheckBoxClick);
         ramSlider.setMax(Math.round(RamConverter.toGigabytes(UserPC.getAvailableRam())));
+        ramSlider.setMin(1);
+
         EventDispatcher.subscribe(EventDispatcher.EventType.SETTINGS_EVENT, eventData -> {
-            Events.SettingsEvent data = (Events.SettingsEvent) eventData;
+            Events.SettingsEventData data = (Events.SettingsEventData) eventData;
             updateVisualSettings(data.getNewSettings());
         });
 
@@ -110,8 +113,8 @@ public class SettingsController extends BaseController {
 
                 changedSettings = getChangedSettings(newSettings);
 
-                EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT, new Events.SettingsEvent(
-                        Events.SettingsEvent.SettingsEventType.RESTORE,
+                EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT, new Events.SettingsEventData(
+                        Events.SettingsEventData.SettingsEventType.RESTORE,
                         changedSettings,
                         settingsBeforeChange,
                         newSettings
@@ -154,8 +157,8 @@ public class SettingsController extends BaseController {
                         try {
                             newSettings.save();
                             EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT,
-                                    new Events.SettingsEvent(
-                                            Events.SettingsEvent.SettingsEventType.SAVE,
+                                    new Events.SettingsEventData(
+                                            Events.SettingsEventData.SettingsEventType.SAVE,
                                             changedSettings,
                                             settingsBeforeChange,
                                             newSettings
@@ -284,7 +287,7 @@ public class SettingsController extends BaseController {
     }
 
     private void openLauncherDir(MouseEvent mouseEvent) {
-        DirManager.launcherDir.openInExplorer();
+        DirectoryManager.launcherDir.openInExplorer();
     }
 
     @Slf4j
@@ -319,9 +322,9 @@ public class SettingsController extends BaseController {
         /**
          * Путь до папки с клиентами
          */
-        private String pathToClientDir = DirManager.launcherDir + File.separator + "clients";
+        private String pathToClientDir = DirectoryManager.launcherDir + File.separator + "clients";
 
-        private static File settingsFile = new File(DirManager.launcherDir.getDir() + File.separator + "settings.properties");
+        private static File settingsFile = new File(DirectoryManager.launcherDir.getDir() + File.separator + "settings.properties");
         public void loadSettings() throws IOException {
 
             if (!new File(pathToClientDir).exists()){
@@ -364,10 +367,17 @@ public class SettingsController extends BaseController {
             try (OutputStream output = new FileOutputStream(settingsFile)) {
                 properties.store(output, "Launcher settings");
             }
+
+            EventDispatcher.throwEvent(EventDispatcher.EventType.SETTINGS_EVENT, new Events.SettingsEventData(
+                    Events.SettingsEventData.SettingsEventType.SAVE,
+                    null,
+                    null,
+                    this
+            ));
         }
 
         public enum SettingsEnum{
-            FULLSCREEN, WIDTH, HEIGHT, HIDE_TO_TRAY, RAM, PATH_TO_CLIENT
+            FULLSCREEN, WIDTH, HEIGHT, HIDE_TO_TRAY, RAM, PATH_TO_CLIENT;
         }
 
         public static void resetToDefault(){

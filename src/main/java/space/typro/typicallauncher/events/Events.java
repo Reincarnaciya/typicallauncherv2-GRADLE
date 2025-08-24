@@ -12,9 +12,8 @@ public class Events {
     @EqualsAndHashCode(callSuper = true)
     @Data
     @AllArgsConstructor
-    public abstract class InternetEvent extends EventData {
+    public static class InternetEventData extends EventData {
         InternetEventType type;
-
 
         public enum InternetEventType {
             LOST, RESTORED
@@ -24,9 +23,7 @@ public class Events {
     @EqualsAndHashCode(callSuper = true)
     @Data
     @AllArgsConstructor
-    public abstract class UserEvent extends EventData {
-
-
+    public static class UserEventData extends EventData {
 
         public enum UserEventType{
             LOGIN, REGISTER, LOGOUT
@@ -36,17 +33,28 @@ public class Events {
     @EqualsAndHashCode(callSuper = true)
     @Data
     @AllArgsConstructor
-    public static class SettingsEvent extends EventData {
+    public static class SettingsEventData extends EventData {
         SettingsEventType SettingsEventType;
         HashMap<String, String> changedSettings;
         SettingsController.GameSettings beforeChange;
         SettingsController.GameSettings newSettings;
 
-
-
-
         public enum SettingsEventType {
             CHANGE, SAVE, RESTORE, CANCEL_EDIT
+        }
+    }
+    @EqualsAndHashCode(callSuper = true)
+    @Data
+    @AllArgsConstructor
+    public static class DownloadEvent extends EventData {
+        DownloadEventType DownloadEventType;
+        String localFilePath;
+        int progressPercent;
+        long totalFileSize;
+        long downloaded;
+
+        public enum DownloadEventType {
+            START, FINISH, PROGRESS_UPDATE
         }
     }
 }

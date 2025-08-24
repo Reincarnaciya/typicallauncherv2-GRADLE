@@ -1,8 +1,9 @@
 package space.typro.typicallauncher.utils;
 
+import space.typro.directorymanager.DirectoryManager;
+import ch.qos.logback.core.Context;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
-import space.typro.typicallauncher.managers.DirManager;
 
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -11,12 +12,14 @@ import java.time.format.DateTimeFormatter;
 
 @Slf4j
 public class LogbackConfigurator {
+
+
     private static final DateTimeFormatter FILE_DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
     private static final String LOG_PATTERN = "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n";
 
     public static void configure() {
         try {
-            Path logDir = DirManager.logDir.getDir().toPath();
+            Path logDir = DirectoryManager.logDir.getDir().toPath();
             Path logFile = logDir.resolve("launcher_" +
                     LocalDateTime.now(ZoneId.of("Europe/Moscow")).format(FILE_DATE_FORMAT) + ".log");
 
@@ -31,7 +34,7 @@ public class LogbackConfigurator {
                     new ch.qos.logback.core.ConsoleAppender<>();
             consoleAppender.setContext(rootLogger.getLoggerContext());
             consoleAppender.setName("CONSOLE");
-            consoleAppender.setEncoder(getPatternLayoutEncoder(rootLogger.getLoggerContext(), LOG_PATTERN));
+            consoleAppender.setEncoder(getPatternLayoutEncoder(rootLogger.getLoggerContext()));
             consoleAppender.start();
 
             ch.qos.logback.core.FileAppender<ch.qos.logback.classic.spi.ILoggingEvent> fileAppender =
@@ -39,7 +42,7 @@ public class LogbackConfigurator {
             fileAppender.setContext(rootLogger.getLoggerContext());
             fileAppender.setName("FILE");
             fileAppender.setFile(logFile.toString());
-            fileAppender.setEncoder(getPatternLayoutEncoder(rootLogger.getLoggerContext(), LOG_PATTERN));
+            fileAppender.setEncoder(getPatternLayoutEncoder(rootLogger.getLoggerContext()));
             fileAppender.start();
 
             rootLogger.addAppender(consoleAppender);
@@ -53,10 +56,10 @@ public class LogbackConfigurator {
     }
 
     private static ch.qos.logback.core.encoder.LayoutWrappingEncoder<ch.qos.logback.classic.spi.ILoggingEvent>
-    getPatternLayoutEncoder(ch.qos.logback.core.Context context, String pattern) {
+    getPatternLayoutEncoder(Context context) {
 
         ch.qos.logback.classic.PatternLayout layout = new ch.qos.logback.classic.PatternLayout();
-        layout.setPattern(pattern);
+        layout.setPattern(LogbackConfigurator.LOG_PATTERN);
         layout.setContext(context);
         layout.start();
 

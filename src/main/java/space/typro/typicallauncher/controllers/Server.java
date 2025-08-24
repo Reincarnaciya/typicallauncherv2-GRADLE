@@ -18,7 +18,7 @@ public class Server {
     private ServerStatus status;
     private int currentPlayers;
     private final int maxPlayers;
-    private ServerCardUI ui; // Ссылка на UI элементы
+    private ServerCardUI ui;
 
     public Server(String name, String description, ServerStatus status, int maxPlayers, int currentPlayers) {
         this.name = name;

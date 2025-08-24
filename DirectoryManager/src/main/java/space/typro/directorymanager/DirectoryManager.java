@@ -1,4 +1,4 @@
-package space.typro.typicallauncher.managers;
+package space.typro.directorymanager;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -9,28 +9,32 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import space.typro.common.UserPC;
 
-@Getter
+
 @Slf4j
-public class DirManager {
+@Getter
+public class DirectoryManager {
 
-    public static final DirManager launcherDir = new DirManager("TypicalLauncher");
-    public static final DirManager logDir = new DirManager(launcherDir, "logs");
-    public static final DirManager assetsDir = new DirManager(launcherDir, "assets");
+    public static final DirectoryManager launcherDir = new DirectoryManager("TypicalLauncher");
+    public static final DirectoryManager logDir = new DirectoryManager(launcherDir, "logs");
+    public static final DirectoryManager assetsDir = new DirectoryManager(launcherDir, "assets");
+    public static final DirectoryManager metadataDir = new DirectoryManager(launcherDir, "metadata");
+    public static final DirectoryManager clientDir = new DirectoryManager(launcherDir, "clients");
 
     private final File dir;
 
     /**
      * Создает папку относительно родительской директории
      */
-    public DirManager(DirManager parent, String dirName) {
+    public DirectoryManager(DirectoryManager parent, String dirName) {
         this(parent.getDir().toPath().resolve(dirName).toString());
     }
 
     /**
      * Создает папку в системной директории по умолчанию
      */
-    public DirManager(String dirName) {
+    public DirectoryManager(String dirName) {
         Path basePath = getBasePath();
         Path resolvedPath = basePath.resolve(dirName);
         this.dir = createDirectory(resolvedPath);
@@ -49,7 +53,7 @@ public class DirManager {
         try {
             Files.delete(file.toPath());
         } catch (IOException e) {
-            log.error("Failed to delete file: {}", file.getAbsolutePath(), e);
+            e.printStackTrace();
         }
     }
 
@@ -57,17 +61,16 @@ public class DirManager {
         String userHome = System.getProperty("user.home", ".");
 
         return switch (UserPC.USER_OS) {
-            case WINDOWS -> {
+            case UserPC.OS.WINDOWS -> {
                 String appData = System.getenv("APPDATA");
                 if (appData != null) {
                     yield Paths.get(appData);
                 } else {
-                    log.warn("APPDATA not found, using user.home: {}", userHome);
                     yield Paths.get(userHome);
                 }
             }
-            case LINUX -> Paths.get(userHome, ".local", "share");
-            case MACOS -> Paths.get(userHome, "Library", "Application Support");
+            case UserPC.OS.LINUX -> Paths.get(userHome, ".local", "share");
+            case UserPC.OS.MACOS -> Paths.get(userHome, "Library", "Application Support");
             default -> Paths.get(userHome);
         };
     }
@@ -89,29 +92,26 @@ public class DirManager {
                 openFallback();
             }
         } catch (IOException e) {
-            log.error("Failed to open directory", e);
+            e.printStackTrace();
             openFallback();
         }
     }
 
     private void openFallback() {
-        String os = UserPC.USER_OS.name().toLowerCase();
         String command = switch (UserPC.USER_OS) {
-            case WINDOWS -> "explorer";
-            case LINUX -> "xdg-open";
-            case MACOS -> "open";
+            case UserPC.OS.WINDOWS -> "explorer";
+            case UserPC.OS.LINUX -> "xdg-open";
+            case UserPC.OS.MACOS -> "open";
             default -> null;
         };
 
         if (command == null) {
-            log.error("Unsupported OS: {}", os);
             return;
         }
 
         try {
             new ProcessBuilder(command, dir.getAbsolutePath()).start();
         } catch (IOException e) {
-            log.error("Failed to open directory with fallback method", e);
         }
     }
 
