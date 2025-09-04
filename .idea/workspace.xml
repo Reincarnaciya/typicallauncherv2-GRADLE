@@ -4,31 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="Подправлен визуал">
-      <change afterPath="$PROJECT_DIR$/DirectoryManager/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketManager/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadTask.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/packetmanager/PacketManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PacketManager/src/main/resources/logback.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/common/src/main/java/space/typro/common/UserPC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="75257361-504f-4012-a9a2-66cadc39c44f" name="Changes" comment="Проект разделен на модули. &#10;Добавлен модуль менеджера пакетов:&#10;Реализована закачка файлов, сверка хешей файлов клиента.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/StartManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketManager/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/PacketManager/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketManager/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/PacketManager/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/Download/DownloadTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/packetmanager/PacketManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/PacketManager/src/main/java/space/typro/packetmanager/PacketManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/common/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/SettingsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/SettingsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/events/EventData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/events/EventData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/events/EventDispatcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/events/EventDispatcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/events/Events.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/events/Events.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DirManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/DirectoryManager/src/main/java/space/typro/directorymanager/DirectoryManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DownloadManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/DownloadTask.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/managers/UserPC.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/utils/LogbackConfigurator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/utils/LogbackConfigurator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/PlayController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/controllers/scenes/subscenes/PlayController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/models/ServerCardUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/space/typro/typicallauncher/models/ServerCardUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/space/typro/typicallauncher/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,8 +69,8 @@
       <list>
         <option value="FxmlFile" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="module-info" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -110,38 +98,38 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Gradle.Download Sources.executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.GameMetadataGenerator.main()].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.Main.main()].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [clean].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [dependencies].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [jar].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE [run].executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE.executor": "Run",
-    "Gradle.typicallauncherv2-GRADLE:PacketManager [:PacketManager:space.typro.packetmanager.PacketManager.main()].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/Rein/IdeaProjects/typicallauncherv2-GRADLE/src/main/resources/space/typro/typicallauncher",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Gradle.Download Sources.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.GameMetadataGenerator.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [:space.typro.typicallauncher.Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.typicallauncherv2-GRADLE:PacketManager [:PacketManager:space.typro.packetmanager.PacketManager.main()].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Rein/IdeaProjects/typicallauncherv2-GRADLE/src/main/resources/space/typro/typicallauncher&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Rein\IdeaProjects\typicallauncherv2-GRADLE\src\main\resources\space\typro\typicallauncher" />
@@ -157,7 +145,7 @@
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.PacketManager">
+  <component name="RunManager" selected="Gradle.typicallauncherv2-GRADLE [run]">
     <configuration name="GameMetadataGenerator" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="space.typro.typicallauncher.GameMetadataGenerator" />
       <module name="typicallauncherv2-GRADLE.main" />
@@ -304,7 +292,22 @@
       <workItem from="1755416302690" duration="804000" />
       <workItem from="1755683932880" duration="34000" />
       <workItem from="1755700052053" duration="3891000" />
-      <workItem from="1756022108697" duration="10758000" />
+      <workItem from="1756022108697" duration="11256000" />
+      <workItem from="1756038390706" duration="207000" />
+      <workItem from="1756040936519" duration="740000" />
+      <workItem from="1756232656872" duration="1592000" />
+      <workItem from="1756290315457" duration="6374000" />
+      <workItem from="1756320207985" duration="488000" />
+      <workItem from="1756324624496" duration="20000" />
+      <workItem from="1756464486902" duration="219000" />
+      <workItem from="1756470004429" duration="1117000" />
+      <workItem from="1756565019024" duration="1558000" />
+      <workItem from="1756569505764" duration="947000" />
+      <workItem from="1756576522551" duration="151000" />
+      <workItem from="1756629018641" duration="3603000" />
+      <workItem from="1756652458656" duration="1222000" />
+      <workItem from="1756744120293" duration="117000" />
+      <workItem from="1756744297503" duration="4546000" />
     </task>
     <task id="LOCAL-00001" summary="Начало вёрстки.. (спасите)">
       <option name="closed" value="true" />
@@ -378,7 +381,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754478509772</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Проект разделен на модули. &#10;Добавлен модуль менеджера пакетов:&#10;Реализована закачка файлов, сверка хешей файлов клиента.">
+      <option name="closed" value="true" />
+      <created>1756033901357</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1756033901357</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,6 +413,7 @@
     <MESSAGE value="Рефакторинг css, теперь удобно читать его.." />
     <MESSAGE value="Добавлена вкладка &quot;Профиль&quot;. Начата работа над закачкой клиента." />
     <MESSAGE value="Подправлен визуал" />
-    <option name="LAST_COMMIT_MESSAGE" value="Подправлен визуал" />
+    <MESSAGE value="Проект разделен на модули. &#10;Добавлен модуль менеджера пакетов:&#10;Реализована закачка файлов, сверка хешей файлов клиента." />
+    <option name="LAST_COMMIT_MESSAGE" value="Проект разделен на модули. &#10;Добавлен модуль менеджера пакетов:&#10;Реализована закачка файлов, сверка хешей файлов клиента." />
   </component>
 </project>

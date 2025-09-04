@@ -8,8 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import space.typro.typicallauncher.controllers.BaseController;
 import space.typro.typicallauncher.controllers.Server;
 import space.typro.typicallauncher.models.ServerCardUI;
@@ -28,11 +30,11 @@ public class PlayController extends BaseController {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<HBox> serversContainers = new ArrayList<>();
 
-        serversContainers.add(createServerCard(new Server("TyMMO", "Massive multiplayer online experience", Server.ServerStatus.ONLINE, 500, 200)));
-        serversContainers.add(createServerCard(new Server("TyKoban", "Competitive gameplay server", Server.ServerStatus.MAINTENANCE, 100, 0)));
-        serversContainers.add(createServerCard(new Server("TySeryoga", "Massive multiplayer online experience", Server.ServerStatus.OFFLINE, 20, 0)));
-        serversContainers.add(createServerCard(new Server("TyBLYEA", "Massive multiplayer online experience", Server.ServerStatus.STARTING, 300, 0)));
-        serversContainers.add(createServerCard(new Server("TyPOZDA", "Massive multiplayer online experience", Server.ServerStatus.WHITELIST, 111, 10)));
+        serversContainers.add(createServerCard(new Server("TyTest", "Massive multiplayer online experience", Server.ServerStatus.ONLINE, 500, 200, Server.ServerVersion.VERSION_1_7_10)));
+        serversContainers.add(createServerCard(new Server("TyKoban", "Competitive gameplay server", Server.ServerStatus.ONLINE, 100, 0, Server.ServerVersion.VERSION_1_7_10)));
+        serversContainers.add(createServerCard(new Server("TySeryoga", "Massive multiplayer online experience", Server.ServerStatus.OFFLINE, 20, 0, Server.ServerVersion.VERSION_1_7_10)));
+        serversContainers.add(createServerCard(new Server("TyBLYEA", "Massive multiplayer online experience", Server.ServerStatus.STARTING, 300, 0, Server.ServerVersion.VERSION_1_7_10)));
+        serversContainers.add(createServerCard(new Server("TyPOZDA", "Massive multiplayer online experience", Server.ServerStatus.WHITELIST, 111, 10, Server.ServerVersion.VERSION_1_7_10)));
 
         serversContainer.getChildren().addAll(serversContainers);
     }
@@ -69,13 +71,28 @@ public class PlayController extends BaseController {
 
         statusBox.getChildren().addAll(ui.statusLabel, ui.playersLabel);
 
-        // Кнопка подключения
+        // Контейнер для кнопки и статуса запуска
+        VBox actionContainer = new VBox();
+        actionContainer.getStyleClass().add("action-container");
+        actionContainer.setAlignment(Pos.CENTER);
+        actionContainer.setSpacing(5);
+
+        Text measuringText = new Text("Скачиваю: netty-transport-classes-epoll-4.1.82.Final, 100 %");
+        measuringText.setFont(Font.font("Inter", 11));
+        double maxTextWidth = measuringText.getBoundsInLocal().getWidth();
+
+        actionContainer.setMinWidth(maxTextWidth + 20);
+        actionContainer.setPrefWidth(maxTextWidth + 20);
+
         ui.actionButton = new Button();
         server.updateActionButton(ui.actionButton);
 
-        // Добавляем все элементы
+        ui.startStatusLabel = new Label();
+        ui.startStatusLabel.getStyleClass().add("start-status-label");
+
+        actionContainer.getChildren().addAll(ui.actionButton, ui.startStatusLabel);
         serverInfo.getChildren().addAll(nameLabel, descLabel, statusBox);
-        serverCard.getChildren().addAll(serverInfo, ui.actionButton);
+        serverCard.getChildren().addAll(serverInfo, actionContainer); // ← ИЗМЕНЕНИЕ ЗДЕСЬ
 
         server.setUI(ui);
         return serverCard;

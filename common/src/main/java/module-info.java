@@ -4,6 +4,7 @@ module space.typro.common {
     requires transitive org.slf4j;
 
     requires static lombok;
+    requires jdk.management;
 
     opens space.typro.common to org.slf4j;
 

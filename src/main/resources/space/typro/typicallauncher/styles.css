@@ -452,6 +452,15 @@ SVGPath {
     -fx-font-size: 11px;
     -fx-background-color: rgba(0, 0, 0, 0.1);
 }
+.action-container {
+    -fx-alignment: center;
+    -fx-spacing: 5px;
+}
+
+.start-status-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
 
 .status-online {
     -fx-text-fill: #4ade80;

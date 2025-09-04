@@ -45,8 +45,18 @@ public class DownloadTask {
     public void download() throws IOException, URISyntaxException {
         URL url = new URI(fileUrl.replace(" ", "%20")).toURL();
 
-        // Получаем размер файла на сервере
-        remoteFileSize = getRemoteFileSize(url);
+        // Открываем соединение с явными заголовками
+        URLConnection connection = url.openConnection();
+        connection.setRequestProperty("Accept", "application/octet-stream");
+        connection.setRequestProperty("Content-Type", "application/octet-stream");
+        connection.setConnectTimeout(10000);
+        connection.setReadTimeout(30000);
+        connection.connect();
+
+        remoteFileSize = connection.getContentLengthLong();
+        if (getRemoteFileSize() < 0) {
+            throw new IOException("Файл не найден на сервере");
+        }
 
         // Проверяем существующий локальный файл
         File localFile = new File(savePath);
@@ -68,10 +78,22 @@ public class DownloadTask {
             long totalRead = 0;
             int bytesRead;
 
+            // В методе download() замените:
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
                 totalRead += bytesRead;
                 progress.set(calculateProgress(totalRead, remoteFileSize));
+            }
+            outputStream.flush(); // Гарантируем запись всех данных
+
+
+            File downloadedFile = new File(savePath);
+            long actualSize = downloadedFile.length();
+            if (actualSize != remoteFileSize) {
+                throw new IOException(String.format(
+                        "File size mismatch after download! Expected: %d, Actual: %d",
+                        remoteFileSize, actualSize
+                ));
             }
 
             verifyFileSize();
@@ -113,11 +135,6 @@ public class DownloadTask {
         return progress.get();
     }
 
-    private long getRemoteFileSize(URL url) throws IOException {
-        URLConnection connection = url.openConnection();
-        connection.connect();
-        return connection.getContentLengthLong();
-    }
 
     private int calculateProgress(long downloaded, long total) {
         return total > 0 ? (int) ((downloaded * 100) / total) : 0;

@@ -7,7 +7,7 @@ module space.typro.packetmanager {
     // Наши внутренние зависимости
     requires transitive space.typro.common;
     requires transitive space.typro.directorymanager;
-    requires com.google.gson;
+    requires com.fasterxml.jackson.databind;
 
     // Экспортируем все пакеты
     exports space.typro.Download;

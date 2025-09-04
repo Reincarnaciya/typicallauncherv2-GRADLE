@@ -5,11 +5,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
+import space.typro.typicallauncher.managers.StartManager;
 import space.typro.typicallauncher.models.ServerCardUI;
 
 import java.net.http.HttpClient;
-
+@ToString
 @Slf4j
 @Getter
 public class Server {
@@ -18,9 +20,11 @@ public class Server {
     private ServerStatus status;
     private int currentPlayers;
     private final int maxPlayers;
+    private final ServerVersion serverVersion;
     private ServerCardUI ui;
 
-    public Server(String name, String description, ServerStatus status, int maxPlayers, int currentPlayers) {
+    public Server(String name, String description, ServerStatus status, int maxPlayers, int currentPlayers, ServerVersion serverVersion) {
+        this.serverVersion = serverVersion;
         this.name = name;
         this.description = description;
         this.status = status;
@@ -80,9 +84,12 @@ public class Server {
 
     private void connectToServer() {
         log.info("Connecting to server {}", name);
+        StartManager.start(this);
+    }
 
-
-        
+    @Getter
+    public enum ServerVersion {
+        VERSION_1_7_10, VERSION_1_12_2, VERSION_1_20_1
     }
 
     @Getter
@@ -102,6 +109,5 @@ public class Server {
             this.styleClass = styleClass;
             this.color = color;
         }
-
     }
 }

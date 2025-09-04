@@ -25,7 +25,7 @@ public class DownloadManager {
     private final AtomicInteger completedTasks = new AtomicInteger(0);
 
     public DownloadManager() {
-        this(3);
+        this(1);
     }
 
     public DownloadManager(int maxConcurrentDownloads) {
@@ -117,7 +117,7 @@ public class DownloadManager {
                     while (activeDownloads.containsKey(task)) {
                         notifyProgressUpdate(task, task.getProgress());
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(100);
                         } catch (InterruptedException e) {
                             Thread.currentThread().interrupt();
                         }

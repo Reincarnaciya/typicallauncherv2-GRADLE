@@ -1,19 +1,20 @@
 package space.typro.packetmanager;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import space.typro.Download.DownloadListener;
 import space.typro.Download.DownloadManager;
 import space.typro.Download.DownloadTask;
 import space.typro.directorymanager.DirectoryManager;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
+
+import java.io.*;
 import java.lang.reflect.Type;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
@@ -25,24 +26,26 @@ public class PacketManager {
     private final DownloadManager downloadManager = new DownloadManager(1);
     private final String serverDownloadUrl = "https://typro.space/api/download";
 
-    public static void main(String[] args) {
-        System.err.println(new PacketManager().validateClient("TyTest"));
+
+
+    public boolean validateClient(String server) throws Exception {
+        return downloadClient(server);
     }
 
-    public boolean validateClient(String server) {
+
+
+    private boolean downloadClient(String server) throws Exception {
+
         File clientDir = new File(DirectoryManager.clientDir.getDir() + File.separator + server);
         File metadataFile = getMetadataFile(server);
 
         if (metadataFile == null) {
-            log.error("Failed to get metadata file for server: {}", server);
-            return false;
+            throw new Exception("Failed to get metadata file for server: " + server);
         }
 
         try (FileReader r = new FileReader(metadataFile)) {
 
-            Gson gson = new Gson();
-            Type type = new TypeToken<Map<String, Object>>(){}.getType();
-            Map<String, Object> map = gson.fromJson(r, type);
+            Map<String, Object> map = new ObjectMapper().readValue(metadataFile, new TypeReference<>() {});
 
             @SuppressWarnings("unchecked")
             Map<String, Object> fileMap = (Map<String, Object>) map.get("files");
@@ -51,7 +54,7 @@ public class PacketManager {
             AtomicInteger downloadCount = new AtomicInteger(0);
             AtomicInteger verificationFailures = new AtomicInteger(0);
 
-            downloadManager.addListener(new DownloadListener() {
+            addDownloadListener(new DownloadListener() {
                 @Override
                 public void onDownloadComplete(DownloadTask task) {
                     downloadLatch.countDown();
@@ -68,7 +71,19 @@ public class PacketManager {
 
             fileMap.forEach((filePath, fileData) -> {
                 String expectedHash = (String) fileData;
-                File currentFile = new File(clientDir.getAbsolutePath() + filePath);
+                File currentFile;
+
+                if (isAssets(filePath)) {
+                    currentFile = new File(DirectoryManager.assetsDir.getDir().getParentFile(), filePath);
+                    log.debug("Assets file: {} -> {}", filePath, currentFile.getAbsolutePath());
+                } else if (isJre(filePath)) {
+                    currentFile = new File(DirectoryManager.launcherDir.getDir(), filePath);
+                    log.debug("JRE file: {} -> {}", filePath, currentFile.getAbsolutePath());
+                } else {
+                    String normalizedPath = filePath.startsWith("/") ? filePath : "/" + filePath;
+                    currentFile = new File(clientDir, normalizedPath);
+                    log.debug("Client file: {} -> {}", filePath, currentFile.getAbsolutePath());
+                }
 
                 if (currentFile.exists()) {
                     String actualHash = calculateFileHash(currentFile);
@@ -87,17 +102,21 @@ public class PacketManager {
                 }
 
                 new File(currentFile.getParent()).mkdirs();
-                String downloadUrl = serverDownloadUrl + "/clients/" + server + "/" + filePath;
+
+                String downloadUrl;
+
+                if (isJre(filePath) || isAssets(filePath)) downloadUrl = serverDownloadUrl + "/" + filePath;
+                else downloadUrl = serverDownloadUrl + "/clients/" + server + "/" + filePath;
+
                 DownloadTask task = new DownloadTask(downloadUrl, currentFile.getAbsolutePath());
 
-                // Добавляем проверку хэша после загрузки
                 task.addPostDownloadAction(() -> {
                     String downloadedHash = calculateFileHash(currentFile);
                     if (downloadedHash == null || !downloadedHash.equals(expectedHash)) {
                         log.error("Downloaded file hash mismatch for: {}. Expected: {}, Actual: {}",
                                 filePath, expectedHash, downloadedHash);
                         verificationFailures.incrementAndGet();
-                        // Удаляем невалидный файл
+
                         if (!currentFile.delete()) {
                             log.error("Failed to delete invalid downloaded file: {}", filePath);
                         }
@@ -134,30 +153,39 @@ public class PacketManager {
         return true;
     }
 
+    private boolean isAssets(String filePath){
+        return filePath.startsWith("assets");
+    }
+    private boolean isJre(String filePath){
+        return filePath.startsWith("jre");
+    }
+
+
+    public void addDownloadListener(DownloadListener listener){
+        downloadManager.addListener(listener);
+    }
+
     /**
      * Вычисляет SHA-256 хэш файла
      */
     private String calculateFileHash(File file) {
-        try {
+        try (InputStream is = new FileInputStream(file)) {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            try (FileInputStream fis = new FileInputStream(file)) {
-                byte[] byteArray = new byte[1024];
-                int bytesCount;
+            byte[] buffer = new byte[8192];
+            int read;
 
-                while ((bytesCount = fis.read(byteArray)) != -1) {
-                    digest.update(byteArray, 0, bytesCount);
-                }
+            while ((read = is.read(buffer)) > 0) {
+                digest.update(buffer, 0, read);
             }
 
-            byte[] bytes = digest.digest();
+            byte[] hash = digest.digest();
             StringBuilder hexString = new StringBuilder();
-            for (byte b : bytes) {
+            for (byte b : hash) {
                 String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
+                if (hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
             }
+
             return hexString.toString();
         } catch (NoSuchAlgorithmException | IOException e) {
             log.error("Error calculating hash for file: {}", file.getAbsolutePath(), e);
@@ -165,7 +193,7 @@ public class PacketManager {
         }
     }
 
-    public File getMetadataFile(String server) {
+    public File getMetadataFile(String server) throws Exception {
         String fileName = server + ".json";
         File file = new File(DirectoryManager.metadataDir.getDir().getAbsoluteFile() + File.separator + fileName);
 
@@ -178,7 +206,7 @@ public class PacketManager {
         return null;
     }
 
-    private boolean downloadFileDirectly(String server, String fileName) {
+    private boolean downloadFileDirectly(String server, String fileName) throws Exception {
         try {
             DownloadTask task = new DownloadTask(
                     "https://typro.space/api/download/metadata/" + fileName,
@@ -197,8 +225,7 @@ public class PacketManager {
                 return false;
             }
         } catch (IOException | URISyntaxException e) {
-            log.error("Failed to download metadata for {}: {}", server, e.getMessage());
-            return false;
+            throw new Exception(String.format("Failed to download metadata for %s: %s", server, e.getMessage()));
         }
     }
 }
